@@ -4,7 +4,6 @@
 
 
 
-
 $dbhost = '67.192.246.142:3306';
 $dbuser = 'root';
 $dbpass = 'A1ESECMX-hub2438_dbs';

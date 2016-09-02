@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `scoreboard`.`program` (
 ENGINE = InnoDB;
 
 
+---TODO añadir stages de costumer flow como open blah blah blah
 -- -----------------------------------------------------
 -- Table `scoreboard`.`operation`
 -- -----------------------------------------------------
@@ -65,7 +66,6 @@ CREATE TABLE IF NOT EXISTS `scoreboard`.`operation` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
-
 
 
 

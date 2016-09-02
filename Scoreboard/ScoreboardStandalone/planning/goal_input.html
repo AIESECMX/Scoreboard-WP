@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
+	<link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
+	<script src="goal_input.js">
+	</script>
+	<script type="text/javascript">
+	$(function() {
+		$('.date-picker').datepicker( {
+			changeMonth: true,
+			changeYear: true,
+			showButtonPanel: true,
+			dateFormat: 'MM yy',
+			onClose: function(dateText, inst) { 
+				$(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
+			}
+		});
+	});
+	</script>
+	<style>
+	.ui-datepicker-calendar {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<div style="width: 80%; margin-left: 10%;background: transaparent; padding-bottom:25px; padding-top:35px;"> 
+
+
+		<h2 align="center" id="h">INGRESA METAS MENSUALES</h2>
+		<form action="upload_plan.php" method="POST" class="regform" targer="_black" id="expa_reg_form" accept-charset="UTF-8" style="background-color: transparent; width:80%; margin-left:10%;" >		
+			
+
+			<h6 style="font-weight:normal; display:inline;font-style:inherit;">Comité</h6> <span class="required">*</span>
+			<select required id="committee" name="committee"  style="border:1px solid #037Ef3; width: 60%;"  >
+ 				<option value="">None</option>
+ 				<option value="68" style="background-color: #fff;"> UAEMEX</option>
+				<option value="69" style="background-color: #fff;"> Tabasco</option>
+				<option value="550" style="background-color: #fff;"> Veracruz</option>
+				<option value="552" style="background-color: #fff;"> Sinaloa</option>
+				<option value="874" style="background-color: #fff;"> ITAM</option>
+				<option value="1673" style="background-color: #fff;"> UDEM</option>
+				<option value="1672" style="background-color: #fff;"> La Laguna</option>
+				<option value="119" style="background-color: #fff;"> ITESM Santa Fe</option>
+				<option value="911" style="background-color: #fff;"> Puebla</option>
+				<option value="1589" style="background-color: #fff;"> Aguascalientes</option>
+				<option value="1671" style="background-color: #fff;"> Hermosillo</option>
+				<option value="1077" style="background-color: #fff;"> ITESM CEM</option>
+				<option value="1374" style="background-color: #fff;"> Guadalajara</option>
+				<option value="1891" style="background-color: #fff;"> Cuernavaca</option>
+				<option value="1054" style="background-color: #fff;"> IPN</option>
+				<option value="1790" style="background-color: #fff;"> ITESM Toluca</option>
+				<option value="1193" style="background-color: #fff;"> ULSA</option>
+				<option value="240" style="background-color: #fff;"> UP</option>
+				<option value="1866" style="background-color: #fff;"> Oaxaca</option>
+				<option value="1865" style="background-color: #fff;"> Tampico</option>
+				<option value="1269" style="background-color: #fff;"> ITESM Monterrey</option>
+				<option value="1168" style="background-color: #fff;"> Ciudad Juárez</option>
+				<option value="940" style="background-color: #fff;"> Guanajuato</option>
+				<option value="1287" style="background-color: #fff;"> Querétaro</option>
+				<option value="866" style="background-color: #fff;"> León</option>
+				<option value="724" style="background-color: #fff;"> UNAM</option>
+				<option value="208" style="background-color: #fff;"> Chihuahua</option>
+				<option value="63" style="background-color: #fff;"> Mérida</option>
+			</select>
+			<br/>
+			<br/>
+
+			<h6 style="font-weight:normal; display:inline;font-style:inherit;">Fecha</h6> <span class="required">*</span>
+			
+			<input name="startDate" id="startDate" class="date-picker" required/>
+			
+
+			<table  style=" width:100% " >
+
+				<tr>
+					<th>oGT</th>
+					<th>iGT</th> 
+					<th>oGC</th>
+					<th>iGC</th>
+				</tr>
+				<tr>
+					<td>Approvals <input type="number" name="ap_ogt" min="0" default="0" required></td>
+					<td>Approvals <input type="number" name="ap_igt" min="0" default="0" required></td> 
+					<td>Approvals <input type="number" name="ap_ogc" min="0" default="0" required></td> 
+					<td>Approvals <input type="number" name="ap_igc" min="0" default="0" required></td> 
+				</tr>
+				<tr>
+					<td>Realized <input type="number" name="re_ogt" min="0" default="0" required></td> 
+					<td>Realized <input type="number" name="re_igt" min="0" default="0" required></td> 
+					<td>Realized <input type="number" name="re_ogc" min="0" default="0" required></td> 
+					<td>Realized <input type="number" name="re_igc" min="0" default="0" required></td> 
+				</tr>
+
+			</table>
+			<div id="error" class="error"><p></p></div>
+
+			<div id="submit" style="padding:0px">
+
+
+				<input type="submit" id="submitbtn" name="submitbtn" clicked="false" class="send" value="Confrimar" style="width: 100%; margin: 6px 0px; padding: 6px; background: #037ff3;">
+			</div>
+		</form>
+	</div>
+</body>
+</html>
