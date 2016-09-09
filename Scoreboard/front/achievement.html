@@ -25,6 +25,27 @@
 			</article>
 		</section>
 
+		<!--INPUTS-->
+		<section class="container">
+			<form class="row">
+				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
+					<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
+				</div>
+				<div class="input-field col s6 m3 l3">
+					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
+				</div>
+				<div class="input-field col s6 m3 l3">
+          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
+          			<label for="access_token">Token</label>
+        		</div>
+        		
+        		<div class="input-field col s12 m1 l1">
+        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
+        		</div>				
+			</form>
+		</section>
+		<!--/INPUTS-->
+
 		<section class="row section">
 			<div class="input-field col s3 m2 l2 offset-s5 offset-m5 offset-l5">
     			<select name="programa" id="programa">
@@ -95,26 +116,7 @@
 			</table>
 		</section>
 
-		<!--INPUTS-->
-		<section class="container">
-			<form class="row">
-				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
-					<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
-				</div>
-				<div class="input-field col s6 m3 l3">
-					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
-				</div>
-				<div class="input-field col s6 m3 l3">
-          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
-          			<label for="access_token">Token</label>
-        		</div>
-        		
-        		<div class="input-field col s12 m1 l1">
-        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
-        		</div>				
-			</form>
-		</section>
-		<!--/INPUTS-->
+
 
 
 	</section>

@@ -25,6 +25,27 @@
 			</article>
 		</section>
 
+				<!--INPUTS-->
+		<section class="container">
+			<form class="row">
+				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
+					<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
+				</div>
+				<div class="input-field col s6 m3 l3">
+					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
+				</div>
+				<div class="input-field col s6 m3 l3">
+          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
+          			<label for="access_token">Token</label>
+        		</div>
+        		
+        		<div class="input-field col s12 m1 l1">
+        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
+        		</div>				
+			</form>
+		</section>
+		<!--/INPUTS-->
+
 		<section class="row section">
 			<div class="input-field col s3 m2 l2 offset-s4 offset-m4 offset-l4">
     			<select name="programa" id="programa">
@@ -97,26 +118,7 @@
 			</table>
 		</section>
 
-		<!--INPUTS-->
-		<section class="container">
-			<form class="row">
-				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
-					<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
-				</div>
-				<div class="input-field col s6 m3 l3">
-					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
-				</div>
-				<div class="input-field col s6 m3 l3">
-          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
-          			<label for="access_token">Token</label>
-        		</div>
-        		
-        		<div class="input-field col s12 m1 l1">
-        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
-        		</div>				
-			</form>
-		</section>
-		<!--/INPUTS-->
+
 
 
 	</section>
@@ -145,26 +147,37 @@
 			google.charts.setOnLoadCallback(drawMultSeries);
 
 			function drawMultSeries() {
-			
-		    	var data = google.visualization.arrayToDataTable([
-		        	['MCs', 'Cantidad',{ role: 'annotation' }, {role: 'style'}],
-		        	['Planned', 3500, 3500, 'orange'],
-		        	['Achieved', 1400, 1400, 'gray']
-		      	]);
-				
+	
 
-		    	var options = {
-		        	title: '# Approved de 2016',
-		        	chartArea: {width: '100%'},
-		        	hAxis: {
-		          		title: 'Total',
-		          		minValue: 0
-		        	},
-		        	legend: { position: "none" },
-		      	};
 
-		      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-		      chart.draw(data, options);
+		        var data = google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['Approved', 300,'plan', 1000-300,   'achieved'],
+        	['Realized', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+        var options = {
+        	chartArea: {width: '100%'},
+        	hAxis: {
+        		title: 'Total',
+        		minValue: 0
+        	},
+        	legend: { position: "none" },
+        };
+        var options_fullStacked = {
+        	title: 'Plan VS Achieved de 2016',
+
+        	isStacked: 'percent',
+        	height: 120,
+        	legend: {position: 'top', maxLines: 3},
+        	hAxis: {
+        		minValue: 0,
+        		ticks: [.3, .7 ]
+        	}
+        };
+
+        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+        chart.draw(data, options_fullStacked);
 		    }
 
 	        $('#status').fadeOut(); // will first fade out the loading animation
