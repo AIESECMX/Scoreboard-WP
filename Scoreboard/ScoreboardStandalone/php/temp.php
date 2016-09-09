@@ -49,8 +49,6 @@ while($row = mysql_fetch_array($res1, MYSQL_ASSOC))
 				)
 			);
 	}
-
-	
     
 } 
 

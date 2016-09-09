@@ -1,30 +1,60 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.js"></script>
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" media="screen" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/base/jquery-ui.css">
-<script type="text/javascript">
-$(function() {
-    $('.date-picker').datepicker( {
-        changeMonth: true,
-        changeYear: true,
-        showButtonPanel: true,
-        dateFormat: 'MM yy',
-        onClose: function(dateText, inst) { 
-            $(this).datepicker('setDate', new Date(inst.selectedYear, inst.selectedMonth, 1));
-        }
-    });
-});
-</script>
-<style>
-.ui-datepicker-calendar {
-    display: none;
-    }
-</style>
+	<script src="./js/jquery-2.2.3.min.js"></script>
+
+	<script src="./js/query.js">
+	</script>
+
 </head>
 <body>
-    <label for="startDate">Date :</label>
-    <input name="startDate" id="startDate" class="date-picker" />
+
+
+	<div style="background-color:#30C39E;">
+		<br/>
+		<label id = "teslabel" name ="teslabel" >test</label>
+		<br/>
+		<input type="button" value="plan vs ach del mc" id="submitbtn">
+		<br/>
+	</div>
+	
+	<div style="background-color:#037Ef3;">
+		<br/>
+		<label id = "cr" name ="cr" >CR</label>
+		<br/>
+		<input type="button" value="Convertion Rates nacionales y locales" id="submitbtn_cr">
+		<br/>
+	</div>
+	<div style="background-color:#F48924;">
+		<br/>
+		<label id = "p_v_a_lc" name ="p_v_a_lc" >PLAN VS ACH DE LOS COMITES</label>
+		<br/>
+		<input type="button" value="PLAN VS ACH DE LOS COMITES" id="submitbtn_p_v_a">
+		<br/>
+	</div>
+	<div style="background-color:#0A8EA0;">
+		<br/>
+		<label id = "proj" name ="proj" >Proyecciones de acuerdo a lo planeado</label>
+		<br/>
+		<input type="button" value="Proyecciones de acuerdo a lo planeado" id="submitbtn_proj">
+		<br/>
+	</div>
+	<div style="background-color:#FFC845;">
+		<br/>
+		<label id = "growth" name ="growth" >crecimiento</label>		
+		<br/>
+		<input type="button" value="crecimiento" id="submitbtn_growth">		
+		<br/>
+	</div>
+	<div style="background-color:#F85A40;">
+		<br/>
+		<label id = "ach_d" name ="ach_d" >ach detallado</label>
+		<br/>
+		<input type="button" value="ach detallado" id="submitbtn_ach_d">
+		<br/>
+	</div>
+
+
+
 </body>
 </html>
