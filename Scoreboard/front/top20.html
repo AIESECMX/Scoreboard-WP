@@ -68,24 +68,13 @@
 		
 		<div class="section"></div>
 
-		<section class="container-fluid">
-			<section class="hide-on-small-only">
-				<article id="goal" class="row">
-					<div class="col s6 m3 l3  offset-m2 offset-l2 center-align">
-						<h3 class="country-name">MC X-COUNTRY</h3>
-						<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
-					</div>
-					<div class="col s6 m5 l5">
-						<div id="chart_div"></div>
-					</div>
-				</article>
-			</section>
+		<section class="container-fluid">			
 
 			<section class="row">
 				<article id="container" class="col s12 m12 l12"  style="min-height: 620px">
 				</article>
-			</section>
-			
+			</section>			
+
 			<section class="container">
 				<form class="row">
 					<div class="input-field col s6 m3 l3">
@@ -113,6 +102,21 @@
 	        		</div>				
 				</form>
 			</section>
+	
+			<!--Gráfico Plan vs Ach.-->
+			<section class="hide-on-small-only">
+				<article id="goal" class="row">
+					<div class="col s6 m3 l3  offset-m2 offset-l2 center-align">
+						<h3 class="country-name">MC X-COUNTRY</h3>
+						<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
+					</div>
+					<div class="col s6 m5 l5">
+						<div id="chart_div"></div>
+					</div>
+				</article>
+			</section>
+			<!--/Gráfico Plan vs Ach.-->
+
 
 			<div class="row">				
 				<div class="input-field col s12 m5 l5">						
@@ -198,9 +202,7 @@
 
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
-			$('body').delay(300).css({'overflow':'visible'});
-
-        
+			$('body').delay(300).css({'overflow':'visible'});      
 
 	    });
   		</script>

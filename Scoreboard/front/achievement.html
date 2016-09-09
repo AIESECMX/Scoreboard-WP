@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Achievement</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+	<section class="containter-fluid">
+		<section>
+			<artcicle id="goal" class="row">
+				<div class="col s12 m12 l12 center-align">
+					<h3>Achievement</h3>
+				</div>
+				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
+					<h3 class="country-name">MC X-COUNTRY</h3>
+					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
+				</div>
+				<div class="col s6 m5 l5 hide-on-small-only section">
+					<div id="chart_div"></div>
+				</div>
+			</article>
+		</section>
+
+		<section class="row section">
+			<div class="input-field col s3 m2 l2 offset-s5 offset-m5 offset-l5">
+    			<select name="programa" id="programa">
+  					<option value="" disabled selected>Programa</option>
+  					<option value="1">oGV</option>
+  					<option value="2">oGT</option>
+  					<option value="3">iGV</option>
+  					<option value="3">iGT</option>
+				</select>
+			</div>
+		</section>
+
+		<section class="container row section">
+			<table class="striped">
+				<thead>
+					<tr>
+						<th colspan="3"></th>
+						<th colspan="3" class="center-align grey darken-1 white-text">Approved</th>
+						<th colspan="3" class="center-align grey darken-1 white-text">Realized</th>
+						<th colspan="3" class="center-align grey darken-1 white-text ">Completed</th>
+					</tr>
+					<tr>
+						<th class="center-align">LC</th>
+						<th class="center-align">Open</th>
+						<th class="center-align">Accept</th>
+						<th class="center-align">Plan</th>
+						<th class="center-align">Achieved</th>
+						<th class="center-align">%</th>
+						<th class="center-align">Plan</th>
+						<th class="center-align">Achieved</th>
+						<th class="center-align">%</th>
+						<th class="center-align">Plan</th>
+						<th class="center-align">Achieved</th>
+						<th class="center-align">%</th>	
+					</tr>
+				</thead>
+				<tbody>
+					<!--Hacer Foreach a los TR-->
+					<tr ng-repeat="mc in mcs20 | filter : search">						
+						<td class="center-align">ITAM</td>
+						<td class="center-align">100</td>
+						<td class="center-align">100</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+					</tr>
+					<tr ng-repeat="mc in mcs20 | filter : search">						
+						<td class="center-align">UNAM</td>
+						<td class="center-align">100</td>
+						<td class="center-align">100</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+						<td class="center-align">70</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+
+		<!--INPUTS-->
+		<section class="container">
+			<form class="row">
+				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
+					<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
+				</div>
+				<div class="input-field col s6 m3 l3">
+					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
+				</div>
+				<div class="input-field col s6 m3 l3">
+          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
+          			<label for="access_token">Token</label>
+        		</div>
+        		
+        		<div class="input-field col s12 m1 l1">
+        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
+        		</div>				
+			</form>
+		</section>
+		<!--/INPUTS-->
+
+
+	</section>
+	<!-- Compiled and minified JavaScript -->
+		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script>
+		$(document).ready(function() {
+	    	$('select').material_select();
+			$('.datepicker-in').pickadate({
+				formatSubmit: 'yyyy-mm-dd',
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 15, // Creates a dropdown of 15 years to control year
+				max: true
+				});
+				$('.datepicker-out').pickadate({
+					formatSubmit: 'yyyy/mm/dd',
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 15, // Creates a dropdown of 15 years to control year
+				max: true
+				});
+
+				google.charts.load('current', {packages: ['corechart', 'bar']});
+			google.charts.setOnLoadCallback(drawMultSeries);
+
+			function drawMultSeries() {
+			
+		    	var data = google.visualization.arrayToDataTable([
+		        	['MCs', 'Cantidad',{ role: 'annotation' }, {role: 'style'}],
+		        	['Planned', 3500, 3500, 'orange'],
+		        	['Achieved', 1400, 1400, 'gray']
+		      	]);
+				
+
+		    	var options = {
+		        	title: '# Approved de 2016',
+		        	chartArea: {width: '100%'},
+		        	hAxis: {
+		          		title: 'Total',
+		          		minValue: 0
+		        	},
+		        	legend: { position: "none" },
+		      	};
+
+		      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+		      chart.draw(data, options);
+		    }
+
+	        $('#status').fadeOut(); // will first fade out the loading animation
+			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
+			$('body').delay(300).css({'overflow':'visible'});
+			});
+			</script>
+</body>
+</html>
