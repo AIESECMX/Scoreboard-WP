@@ -7,25 +7,27 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
 </head>
 <body>
 	<section class="containter-fluid">
 		<section>
-			<artcicle id="goal" class="row">
+			<article id="goal" class="row">
 				<div class="col s12 m12 l12 center-align">
 					<h3>Projections</h3>
 				</div>
 				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
-					<h3 class="country-name">MC X-COUNTRY</h3>
+					<h3>MC X-COUNTRY</h3>
 					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
 				</div>
 				<div class="col s6 m5 l5 hide-on-small-only section">
+					<div class="section"></div>
 					<div id="chart_div"></div>
 				</div>
 			</article>
 		</section>
 
-				<!--INPUTS-->
+		<!--INPUTS-->
 		<section class="container">
 			<form class="row">
 				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
@@ -76,40 +78,40 @@
 		</section>
 
 		<section class="container row section">
-			<table class="striped">
+			<table class="striped sortable-theme-bootstrap" data-sortable>
 				<thead>
 					<tr>
-						<th colspan="1"></th>
-						<th colspan="3" class="center-align grey darken-1 white-text">Planned for October</th>
-						<th colspan="1"></th>
-						<th colspan="2" class="center-align grey darken-1 white-text">Projected</th>
+						<th colspan="1" data-sortable-type="numeric"></th>
+						<th colspan="3" class="center-align grey darken-1 white-text" data-sortable-type="numeric">Planned for October</th>
+						<th colspan="1" data-sortable-type="numeric"></th>
+						<th colspan="2" class="center-align grey darken-1 white-text" data-sortable-type="numeric">Projected</th>
 					</tr>
-					<tr>
+					<tr>						
 						<th class="center-align">LC</th>
-						<th class="center-align">Approved</th>
-						<th class="center-align">Realized</th>
-						<th class="center-align">Completed</th>
-						<th class="center-align"></th>
-						<th class="center-align">Open</th>
-						<th class="center-align">Accepted</th>
+						<th class="center-align" data-sortable-type="numeric">Approved</th>
+						<th class="center-align" data-sortable-type="numeric">Realized</th>
+						<th class="center-align" data-sortable-type="numeric">Completed</th>
+						<th class="center-align" data-sortable-type="numeric"></th>
+						<th class="center-align" data-sortable-type="numeric">Open</th>
+						<th class="center-align" data-sortable-type="numeric">Accepted</th>
 					</tr>
 				</thead>
 				<tbody>
 					<!--Hacer Foreach a los TR-->
-					<tr ng-repeat="mc in mcs20 | filter : search">						
+					<tr>						
 						<td class="center-align">ITAM</td>
-						<td class="center-align">40</td>
+						<td class="center-align">100</td>
 						<td class="center-align">35</td>
 						<td class="center-align">34</td>
 						<td class="center-align"></td>
 						<td class="center-align">35</td>
 						<td class="center-align">34</td>
 					</tr>
-					<tr ng-repeat="mc in mcs20 | filter : search">						
+					<tr>						
 						<td class="center-align">UNAM</td>
 						<td class="center-align">40</td>
 						<td class="center-align">35</td>
-						<td class="center-align">34</td>
+						<td class="center-align">100</td>
 						<td class="center-align"></td>
 						<td class="center-align">35</td>
 						<td class="center-align">34</td>
@@ -127,6 +129,7 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="js/sortable.min.js"></script>
 		<script>
 		$(document).ready(function() {
 	    	$('select').material_select();
@@ -136,54 +139,52 @@
 				selectYears: 15, // Creates a dropdown of 15 years to control year
 				max: true
 				});
-				$('.datepicker-out').pickadate({
-					formatSubmit: 'yyyy/mm/dd',
+			$('.datepicker-out').pickadate({
+				formatSubmit: 'yyyy/mm/dd',
 				selectMonths: true, // Creates a dropdown to control month
 				selectYears: 15, // Creates a dropdown of 15 years to control year
 				max: true
-				});
+			});
 
-				google.charts.load('current', {packages: ['corechart', 'bar']});
+			google.charts.load('current', {packages: ['corechart', 'bar']});
 			google.charts.setOnLoadCallback(drawMultSeries);
 
 			function drawMultSeries() {
 	
+			    var data = google.visualization.arrayToDataTable([
+	        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+	        	['Approved', 300,'plan', 1000-300,   'achieved'],
+	        	['Realized', 700, 'plan',1500-700,  'achieved']
+	        	]);
 
+		        var options = {
+		        	chartArea: {width: '100%'},
+		        	hAxis: {
+		        		title: 'Total',
+		        		minValue: 0
+		        	},
+		        	legend: { position: "none" },
+		        };
+		        var options_fullStacked = {
+		        	title: 'Plan VS Achieved de 2016',
 
-		        var data = google.visualization.arrayToDataTable([
-        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
-        	['Approved', 300,'plan', 1000-300,   'achieved'],
-        	['Realized', 700, 'plan',1500-700,  'achieved']
-        	]);
+		        	isStacked: 'percent',
+		        	height: 120,
+		        	legend: {position: 'top', maxLines: 3},
+		        	hAxis: {
+		        		minValue: 0,
+		        		ticks: [.3, .7 ]
+		        	}
+		        };
 
-        var options = {
-        	chartArea: {width: '100%'},
-        	hAxis: {
-        		title: 'Total',
-        		minValue: 0
-        	},
-        	legend: { position: "none" },
-        };
-        var options_fullStacked = {
-        	title: 'Plan VS Achieved de 2016',
-
-        	isStacked: 'percent',
-        	height: 120,
-        	legend: {position: 'top', maxLines: 3},
-        	hAxis: {
-        		minValue: 0,
-        		ticks: [.3, .7 ]
-        	}
-        };
-
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options_fullStacked);
+		        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+		        chart.draw(data, options_fullStacked);
 		    }
 
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
 			});
-			</script>
+		</script>
 </body>
 </html>

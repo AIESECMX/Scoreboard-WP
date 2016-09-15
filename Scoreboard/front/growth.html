@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Growth</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
+</head>
+<body>
+	<section class="container-fluid">
+		<section>
+			<article id="goal" class="row">
+				<div class="col s12 m12 l12 center-align">
+					<h3>Growth</h3>
+				</div>
+				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
+					<h3>MC X-COUNTRY</h3>
+					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
+				</div>
+				<div class="col s6 m5 l5 hide-on-small-only section">
+					<div class="section"></div>
+					<!--<div id="chart_div"></div>-->
+				</div>
+			</article>
+		</section>
+
+		<!--Charts-->
+		<div class="section"></div>
+		<section class="container row section">
+			<article id="goals">
+				<table class="stripe">
+					<thead>
+						<tr>
+							<th>LC</th>
+							<th>Metas</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Católica</td>
+							<td><div id="chart_div" width="200"></div></td>
+						</tr>
+						<tr>
+							<td>UDEP</td>
+							<td><div id="chart_div2" width="200"></div></td>
+						</tr>
+						<tr>
+							<td>Chiclayo</td>
+							<td><div id="chart_div3" width="200"></div></td>
+						</tr>
+					</tbody>
+				</table>
+			</article>
+		</section>
+		
+		<!--Tabla-->
+		<section class="container row section">
+			<article>
+				<table class="striped sortable-theme-minimal" data-sortable>
+					<thead>
+						<tr>
+							<th data-sortable-type="">Mes</th>
+							<th data-sortable-type="numeric">2015</th>
+							<th data-sortable-type="numeric">2016</th>
+							<th data-sortable-type="numeric">Crec.Relativo</th>
+							<th data-sortable-type="numeric">Crec.Absoluto</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Enero</td>
+							<td>10</td>
+							<td>20</td>
+							<td>10%</td>
+							<td>11%</td>
+						</tr>
+						<tr>
+							<td>Febrero</td>
+							<td>20</td>
+							<td>30</td>
+							<td>40%</td>
+							<td>35%</td>
+						</tr>
+						<tr>
+							<td>Marzo</td>
+							<td>20</td>
+							<td>30</td>
+							<td>24%</td>
+							<td>35%</td>
+						</tr>
+						<tr>
+							<td>Abril</td>
+							<td>20</td>
+							<td>30</td>
+							<td>12%</td>
+							<td>35%</td>
+						</tr>
+					</tbody>
+				</table>
+			</article>			
+		</section>
+
+	</section>
+
+
+
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script type="text/javascript" src="js/sortable.min.js"></script>
+	<script>
+	$(document).ready(function() {
+    	$('select').material_select();
+		$('.datepicker-in').pickadate({
+			formatSubmit: 'yyyy-mm-dd',
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15, // Creates a dropdown of 15 years to control year
+			max: true
+			});
+		$('.datepicker-out').pickadate({
+			formatSubmit: 'yyyy/mm/dd',
+			selectMonths: true, // Creates a dropdown to control month
+			selectYears: 15, // Creates a dropdown of 15 years to control year
+			max: true
+		});
+
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+		google.charts.setOnLoadCallback(drawMultSeries);
+		function drawMultSeries() {
+
+			//Data 01
+		    var data = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['Approved', 300,'plan', 1000-300,   'achieved'],
+        	['Realized', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+
+			//Data 02
+		    var data2 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['Approved', 300,'plan', 1000-300,   'achieved'],
+        	['Realized', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+		    //Data 03
+		    var data3 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['Approved', 300,'plan', 1000-300,   'achieved'],
+        	['Realized', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+		    /*
+	        var options = {
+	        	chartArea: {width: '100%'},
+	        	hAxis: {
+	        		title: 'Total',
+	        		minValue: 0
+	        	},
+	        	legend: { position: "none" },
+	        };*/
+
+	        //Opciones para todos los chart
+	        var options_fullStacked = {
+	        	title: 'Plan VS Achieved de 2016',
+
+	        	isStacked: 'percent',
+	        	height: 120,
+	        	legend: {position: 'top', maxLines: 3},
+	        	hAxis: {
+	        		minValue: 0,
+	        		ticks: [.3, .7 ]
+	        	}
+	        };
+
+	        //Chart1
+	        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	        chart.draw(data, options_fullStacked);
+	        //Nuevo Chart
+	        var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
+	        chart2.draw(data2, options_fullStacked);
+	        //Nuevo Chart
+	        var chart3 = new google.visualization.BarChart(document.getElementById('chart_div3'));
+	        chart3.draw(data3, options_fullStacked);
+	    }
+
+        $('#status').fadeOut(); // will first fade out the loading animation
+		$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
+		$('body').delay(300).css({'overflow':'visible'});
+		});
+	</script>
+</body>
+</html>
