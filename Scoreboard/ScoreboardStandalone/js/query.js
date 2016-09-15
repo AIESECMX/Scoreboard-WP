@@ -5,6 +5,8 @@
 
  var nu = 1;
  var data_cr = null;
+ var mc_overall = null
+ var mc_pva = null;
 
 
 
@@ -16,6 +18,50 @@
 */
 
 $(function(){
+
+
+
+	// the screen thats is making the call for us to make the initial query
+	var el = document.getElementById('screen').value;
+	console.log(el);
+	switch(parseInt(el)){
+		case 0:
+
+		break;
+		case 1:
+
+		break;
+		case 2:
+
+		break;
+		case 3:
+
+		show_plan_proj(0,-1);
+		$("#go_proj").click(function (){
+			var pr = document.getElementById("programa");
+			var pro = pr.options[pr.selectedIndex].value;
+			var m = document.getElementById("mes");
+			var month = m.options[m.selectedIndex].value;
+			show_plan_proj(pro,month);
+		});
+		break;
+		case 4:
+
+		break;
+		case 5:
+
+		break;
+		default:
+
+		break;
+	}
+
+
+
+
+
+//DEV
+/*
 	//to get PLan vs ach MC
 	$("#submitbtn").click(function (){
 		pl_vs_ach();
@@ -30,7 +76,7 @@ $(function(){
 	});
 	//to get projections
 	$("#submitbtn_proj").click(function (){
-		show_plan_proj(0);
+		show_plan_proj(new Date());
 	});
 	//to get growth 
 	$("#submitbtn_growth").click(function (){
@@ -41,6 +87,8 @@ $(function(){
 		show_plan_vs_ach_lc_d(0,0);
 
 	});
+*/
+	//DEV
 	//TO-DO: Either respond to "GET" analytics requests, or attach event to "Enter" keystroke
 });
 
@@ -52,6 +100,10 @@ $(function(){
 *general funciotn to get plan vs ach MC id for PHP = 1
 */
 function pl_vs_ach(mc_id = 1589){
+
+
+
+
 	var data = {
 		"op": 1,
 		"mc": mc_id,
@@ -60,21 +112,118 @@ function pl_vs_ach(mc_id = 1589){
 	data = $(this).serialize() + "&" + $.param(data);
 	$.ajax({
 		type: "GET",
-      url: "./php/query.php", //Relative or absolute path to response.php file
-      dataType: "json",
-      data: data,
-      success: function(dat) {
-      	$("#teslabel").innerHTML = "lala ";
-      	document.getElementById("teslabel").innerHTML = JSON.stringify(dat);
+     		 url: "./php/query.php", //Relative or absolute path to response.php file
+     		 dataType: "json",
+     		 data: data,
+     		 success: function(dat) {
+     		 	$("#teslabel").innerHTML = "lala ";
+     		 	console.log(JSON.stringify(dat));
+     		 	console.log("se va a llamar el metodo en el else osea que si er null");
+     		 	
+     		 	drawMultSeries(dat);
 
-      	var consulta = JSON.parse(dat);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown){
-      	$("#teslabel").innerHTML="no lol";
-      }
-  });
+     		 },
+     		 error: function(XMLHttpRequest, textStatus, errorThrown){
+     		 	$("#teslabel").innerHTML="no lol";
+     		 }
+     		});
+	
 
 }
+
+/**
+ * this funciotn fills the overal planing (MC) graph
+ * @return {[type]} [description]
+ */
+ function drawMultSeries(data = null) {
+
+
+ 	if (data.app_plan == null){
+ 		console.log("valor es "+data.app_plan)
+ 		pl_vs_ach();
+
+ 	}
+ 	console.log("vaor es "+data.app_plan);
+
+ 	var app_plan = parseInt(data.app_plan)||100;
+ 	var app_ach = parseInt(data.app_ach);
+ 	var re_plan = parseInt(data.re_plan);
+ 	var re_ach = parseInt(data.re_ach);
+
+//@todo: set dinamyc goals or put it  in preferences or configs
+var data = google.visualization.arrayToDataTable([
+	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
+	['Approved', app_ach,'achieved '+app_ach, 6700-app_ach,   'GOAL '+6700, ''],
+	['Realized', re_ach, 'achieved '+re_ach,5050-re_ach,  'GOAL '+5050, '']
+	]);
+
+var options_fullStacked = {
+	isStacked: true,
+	height: 120,
+	legend: {position: 'top', maxLines: 3},
+	hAxis: {
+		minValue: 0,
+		ticks: [500,1000,2000,3000,4000,5000,6000,7000]
+	}
+};
+
+var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+chart.draw(data, options_fullStacked);
+
+}
+
+
+/*
+function display_mc_pva(mc_pva){
+		$('select').material_select();
+		$('.datepicker-in').pickadate({
+			formatSubmit: 'yyyy-mm-dd',
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 15, // Creates a dropdown of 15 years to control year
+				max: true
+			});
+		$('.datepicker-out').pickadate({
+			formatSubmit: 'yyyy/mm/dd',
+				selectMonths: true, // Creates a dropdown to control month
+				selectYears: 15, // Creates a dropdown of 15 years to control year
+				max: true
+			});
+
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+		google.charts.setOnLoadCallback(drawMultSeries);
+
+		function drawMultSeries() {
+
+
+
+			var data = google.visualization.arrayToDataTable([
+				['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
+				['Approved', 500,'achieved 500', 6700-500,   'GOAL '+6700, ''],
+				['Realized', 700, 'achieved 700',5050-700,  'GOAL '+5050, '']
+				]);
+
+			var options_fullStacked = {
+				isStacked: true,
+				height: 120,
+				legend: {position: 'top', maxLines: 3},
+				hAxis: {
+					minValue: 0,
+					ticks: [500,1000,2000,3000,4000,5000,6000,7000]
+				}
+			};
+
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options_fullStacked);
+		}
+
+	        $('#status').fadeOut(); // will first fade out the loading animation
+			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
+			$('body').delay(300).css({'overflow':'visible'});
+		});
+
+
+}
+*/
 
 /////////////////////////////////
 ////// CR screen  start//////
@@ -319,17 +468,18 @@ function show_plan_vs_ach_and_growth_mc_detailed(mc_id,start_date,end_date){}
 *whould return (lc, openPlan,openach,opengrowth,aplPlan,aplAch,aplgrowth,appPlan,AppAch,appgrowth,RePlan,reAch,regrowth,
 *coPla,coAch,cogrowth)
 */
-function show_plan_proj(date, mc_id = 1589){
-	
-	var year = 2016;
-	var month = 6;
+function show_plan_proj(pr,month, mc_id = 1589){
 
+	var year = new Date().getFullYear();
+	var m = month;
+	if (m == -1) m = new Date().getMonth();
 
 	var data = {
 		"op": 4,
 		"mc_id": mc_id,
+		"pr":pr,
 		"year": year,
-		"month": month
+		"month": m
 	};
 	data = $(this).serialize() + "&" + $.param(data);
 	$.ajax({
@@ -352,9 +502,34 @@ function show_plan_proj(date, mc_id = 1589){
 
 function display_plan_proj(data){
 
-	document.getElementById("proj").innerHTML = JSON.stringify(data);
-}
 
+	//UNCOMENT FOR TEST
+		//document.getElementById("proj").innerHTML = JSON.stringify(data);
+
+		console.log(JSON.stringify(data));
+	//UNCOMMENT FOR DEV
+	$("#tbodyid").empty();
+
+	for(var i in data){
+		var tres = document.getElementById("projections").tBodies.item(0);
+		var newrow = tres.insertRow(-1);
+		var col;
+		col = newrow.insertCell(-1);
+		col.innerHTML=i;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].app_plan||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].re_plan||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
+		col = newrow.insertCell(-1);
+		col.innerHTML="";
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].op_plan||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].apl_plan||0;
+	}
+}
 
 /**
 * this function will show committees plan and show the calculations for them to achieve ther app,re, co plan

@@ -25,7 +25,6 @@ $username = $configs['username'];
 $password = $configs['password'];
 $dbname = $configs['dbname'];
 
-
 $conn = null;
 
 
@@ -57,7 +56,7 @@ if ( intval($op) == 1 ){
 	}
 }elseif(intval($op) == 4) {
 	if( isset( $_GET['year'] ) and isset( $_GET['month'] ) and  isset( $_GET['mc_id'] )){
-		get_plan_projections(intval($_GET['mc_id']),intval($_GET['year']),intval($_GET['month']));
+		get_plan_projections(intval($_GET['pr']),intval($_GET['mc_id']),intval($_GET['year']),intval($_GET['month']));
 	}else{
 		http_response_code(400);
 	}	
@@ -175,7 +174,7 @@ function get_ach_month_overall($mc_id,$year,$month){
  * @param  int $month month
  * @return [type]        [description]
  */
-function get_plan_projections($mc_id,$year,$month){
+function get_plan_projections($pr,$mc_id,$year,$month){
 
 	$conn = mysql_connect($GLOBALS['servername'], $GLOBALS['username'],$GLOBALS['password'] );
 	if(! $conn )
@@ -186,11 +185,20 @@ function get_plan_projections($mc_id,$year,$month){
 
 //conertion rate for LCs
 	$results = array();
+	if ($pr == 0 ){
+		$sql = "SELECT app_plan, re_plan, op_plan, apl_plan, LC_name  from operation Inner join  LC on 
+		operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram 
+		where operation.year = ".$year." and operation.month = ".$month." and LC.MC_idMC = ".$mc_id;
+	}else{
+		 //* 	program id (general = 0, igt = 1, ogt = 2,igc = 3,ogc = 4)
 
-	$sql = "SELECT app_plan, re_plan, op_plan, apl_plan, LC_name  
-	from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
-	where operation.year = ".$year." and operation.month = ".$month." and LC.MC_idMC = ".$mc_id;
+		$sql = "SELECT app_plan, re_plan, op_plan, apl_plan, LC_name  from operation Inner join  LC on 
+		operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram 
+		where operation.year = ".$year." and operation.month = ".$month." and LC.MC_idMC = ".$mc_id." 
+		and operation.program_idprogram = ".$pr;
+	}
 	$res = mysql_query( $sql, $conn );
+
 	if(! $res )
 	{
 		die('Could not get data: ' . mysql_error());
@@ -211,7 +219,7 @@ function get_plan_projections($mc_id,$year,$month){
 				"re_plan" => $row['re_plan'],
 				"op_plan" => $row['op_plan'],
 				"apl_plan" => $row['apl_plan']
-				
+
 				);
 
 		}
@@ -453,7 +461,7 @@ function get_operation_mc_year($mc_id,$year){
 
 	$sql = "SELECT sum(app_plan) as app_plan, sum(app_ach) as app_ach,sum(re_plan) as re_plan,sum(re_ach) as re_ach, MC_name, idMC  
 	from operation Inner join  LC on operation.LC_idLC = LC.idLC Inner join MC on LC.MC_idMC = MC.idMC
-	where operation.year = ".$year." and MC.idMC = ".$mc_id."
+	where operation.year = ".$year." and operation.month >= 6 and MC.idMC = ".$mc_id."
 	group by MC_name";
 
 	$res = mysql_query( $sql, $conn );
