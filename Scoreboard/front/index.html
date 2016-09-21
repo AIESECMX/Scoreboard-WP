@@ -1,15 +1,18 @@
 <!doctype html>
-<html ng-app="myApp">
+<html>
 	<head>
 		<title>Ranking Global</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<meta charset="utf-8">
+		<!--Core-->
 		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<!--Custom-->
+		<link rel="stylesheet" type="text/css" href="css/page-center.css">
 	</head>
 
-	<body ng-controller="Analytics">	
+	<body class="cyan">
 		<!--SPINNER-->
     	<div id="preloader">
 	        <div id="status">
@@ -65,148 +68,40 @@
 	        </div>
 	    </div>
     	<!--/SPINNER-->
-		
-		<div class="section"></div>
-
 		<section class="container-fluid">
-			<section class="hide-on-small-only">
-				<article id="goal" class="row">
-					<div class="col s6 m3 l3  offset-m2 offset-l2 center-align">
-						<h3 class="country-name">MC X-COUNTRY</h3>
-						<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
-					</div>
-					<div class="col s6 m5 l5">
-						<div id="chart_div"></div>
-					</div>
-				</article>
-			</section>
-			<section class="container">
-				<form class="row">
-					<div class="input-field col s6 m3 l3">
-						<input placeholder="Fecha de Inicio" type="date" class="datepicker-in" name="fecha_in" id="fecha_in">
-					</div>
-					<div class="input-field col s6 m3 l3">
-						<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
-					</div>
-					<div class="input-field col s6 m2 l2">
-	        			<select name="programa" id="programa">
-	      					<option value="" disabled selected>Programa</option>
-	      					<option value="1">oGV</option>
-	      					<option value="2">oGT</option>
-	      					<option value="3">iGV</option>
-	      					<option value="3">iGT</option>
-	    				</select>
-        			</div>
-					<div class="input-field col s6 m3 l3">
-	          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
-	          			<label for="access_token">Token</label>
-	        		</div>
-	        		
-	        		<div class="input-field col s12 m1 l1">
-	        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
-	        		</div>				
-				</form>
-			</section>
-			<section class="row">
-				<article id="container" class="col s12 m12 l12"  style="min-height: 620px">
-				</article>
-			</section>
-			
-
-
-			<div class="row">				
-				<div class="input-field col s12 m5 l5">						
-					<input type="text" value="" id="search" ng-model="search" />					
-	          		<label for="search">Search</label>
+			<article class="row valign-wrapper">
+				<div class="col s12 m7 l7">
+					<img src="https://lh3.googleusercontent.com/-nJQ9Tfd4YxA/AAAAAAAAAAI/AAAAAAAAABU/-OTu7i_W4z0/photo.jpg" alt="">
 				</div>
-				<table class="striped">
-					<thead>
-						<tr>
-							<th class="center-align">#</th>
-							<th>Name</th>
-							<th>RE</th>
-							<th>MA</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="mc in mcs20 | filter : search">
-							<td class="center-align">{{$index + 1}}</td>
-							<td>{{mc.name}}</td>
-							<td>{{mc.apps}}</td>
-							<td>{{mc.appro}}</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
+				<div class="col s12 m5 l5 valign">
+					<div class="row">
+						<a class="waves-effect waves-light btn-large">Global Ranking</a>						
+					</div>
+					<div class="row">
+						<a class="waves-effect waves-light btn-large">General Report</a>						
+					</div>
+					<div class="row">
+						<a class="waves-effect waves-light btn-large">Conversion Rates Report</a>						
+					</div>
+					<div class="row">
+						<a class="waves-effect waves-light btn-large">Projections</a>						
+					</div>
+					<div class="row">
+						<a class="waves-effect waves-light btn-large">LC by LC Reality</a>						
+					</div>
+				</div>
+			</article>		
 		</section>
+		
+
 		<!-- Compiled and minified JavaScript -->
 		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script src="js/rank.js"></script>
-  		<script>
-  		   
-
-			$('.button-collapse').sideNav({
-			      menuWidth: 300, // Default is 240
-			      edge: 'left', // Choose the horizontal origin
-			      closeOnClick: true // Closes side-nav on <a> clicks, useful for Angular/Meteor
-			    }
-			  );
-
-	    $(document).ready(function() {
-	    	$('select').material_select();
-			$('.datepicker-in').pickadate({
-				formatSubmit: 'yyyy-mm-dd',
-    			selectMonths: true, // Creates a dropdown to control month
-    			selectYears: 15, // Creates a dropdown of 15 years to control year
-    			max: true
-  			});
-  			$('.datepicker-out').pickadate({
-  				formatSubmit: 'yyyy/mm/dd',
-    			selectMonths: true, // Creates a dropdown to control month
-    			selectYears: 15, // Creates a dropdown of 15 years to control year
-    			max: true
-  			});
-
-  			google.charts.load('current', {packages: ['corechart', 'bar']});
-			google.charts.setOnLoadCallback(drawMultSeries);
-
-			function drawMultSeries() {
-			
-		    	var data = google.visualization.arrayToDataTable([
-		        	['MCs', 'Cantidad',{ role: 'annotation' }, {role: 'style'}],
-		        	['Planned', 3500, 3500, 'orange'],
-		        	['Achieved', 1400, 1400, 'gray']
-		      	]);
-				
-
-		    	var options = {
-		        	title: '# Approved de 2016',
-		        	chartArea: {width: '100%'},
-		        	hAxis: {
-		          		title: 'Total',
-		          		minValue: 0
-		        	},
-		        	legend: { position: "none" },
-		      	};
-
-		      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-		      chart.draw(data, options);
-		    }
-
-	        $('#status').fadeOut(); // will first fade out the loading animation
+		<script>
+			$('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
-
-        
-
-	    });
-  		</script>
-    	<!--SCRIPTS GRAPH-->
-    	<script src="https://code.highcharts.com/highcharts.js"></script>
-		<script src="https://code.highcharts.com/modules/data.js"></script>
-		<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+		</script>
 	</body>
 </html>
