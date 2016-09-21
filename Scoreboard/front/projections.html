@@ -15,17 +15,17 @@
 				<div class="col s12 m12 l12 center-align">
 					<h3>Projections</h3>
 				</div>
-				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
-					<h3 class="country-name">MC X-COUNTRY</h3>
-					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
+				<div class="col s3 m3 l3   center-align  section">
+					<h5 class="country-name">MC HUB</h5>
+					<img src="http://placehold.it/50x50?text=FLAG" alt="Flag">
 				</div>
-				<div class="col s6 m5 l5 hide-on-small-only section">
+				<div class="col s9 m9 l9  center-align section">
 					<div id="chart_div"></div>
 				</div>
 			</article>
 		</section>
 
-				<!--INPUTS-->
+		<!--INPUTS-->
 		<section class="container">
 			<form class="row">
 				<div class="input-field col s6 m3 l3 offset-m1 offset-l1">
@@ -35,42 +35,42 @@
 					<input placeholder="Fecha de Fin" type="date" class="datepicker-out" name="fecha_out" id="fecha_out">
 				</div>
 				<div class="input-field col s6 m3 l3">
-          			<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
-          			<label for="access_token">Token</label>
-        		</div>
-        		
-        		<div class="input-field col s12 m1 l1">
-        			<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
-        		</div>				
+					<input id="access_token" ng-model="access_token" name="access_token" type="password" class="validate">
+					<label for="access_token">Token</label>
+				</div>
+
+				<div class="input-field col s12 m1 l1">
+					<button ng-click='go()' class="btn waves-effect waves-light" type="submit" name="action">Go</button>	        			
+				</div>				
 			</form>
 		</section>
 		<!--/INPUTS-->
 
 		<section class="row section">
 			<div class="input-field col s3 m2 l2 offset-s4 offset-m4 offset-l4">
-    			<select name="programa" id="programa">
-  					<option value="" disabled selected>Programa</option>
-  					<option value="1">oGV</option>
-  					<option value="2">oGT</option>
-  					<option value="3">iGV</option>
-  					<option value="3">iGT</option>
+				<select name="programa" id="programa">
+					<option value="" disabled selected>Programa</option>
+					<option value="1">oGV</option>
+					<option value="2">oGT</option>
+					<option value="3">iGV</option>
+					<option value="3">iGT</option>
 				</select>
 			</div>
 			<div class="input-field col s3 m2 l2">
-    			<select name="mes" id="mes">
-  					<option value="" disabled selected>Mes</option>
-  					<option value="1">Enero</option>
-  					<option value="2">Febrero</option>
-  					<option value="3">Marzo</option>
-  					<option value="4">Abril</option>
-  					<option value="5">Mayo</option>
-  					<option value="6">Junio</option>
-  					<option value="7">Julio</option>
-  					<option value="8">Agosto</option>
-  					<option value="9">Septiembre</option>
-  					<option value="10">Octubre</option>
-  					<option value="11">Noviembre</option>
-  					<option value="12">Diciembre</option>
+				<select name="mes" id="mes">
+					<option value="" disabled selected>Mes</option>
+					<option value="1">Enero</option>
+					<option value="2">Febrero</option>
+					<option value="3">Marzo</option>
+					<option value="4">Abril</option>
+					<option value="5">Mayo</option>
+					<option value="6">Junio</option>
+					<option value="7">Julio</option>
+					<option value="8">Agosto</option>
+					<option value="9">Septiembre</option>
+					<option value="10">Octubre</option>
+					<option value="11">Noviembre</option>
+					<option value="12">Diciembre</option>
 				</select>
 			</div>
 		</section>
@@ -123,67 +123,57 @@
 
 	</section>
 	<!-- Compiled and minified JavaScript -->
-		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-  		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script>
-		$(document).ready(function() {
-	    	$('select').material_select();
-			$('.datepicker-in').pickadate({
-				formatSubmit: 'yyyy-mm-dd',
+	<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('select').material_select();
+		$('.datepicker-in').pickadate({
+			formatSubmit: 'yyyy-mm-dd',
 				selectMonths: true, // Creates a dropdown to control month
 				selectYears: 15, // Creates a dropdown of 15 years to control year
 				max: true
-				});
-				$('.datepicker-out').pickadate({
-					formatSubmit: 'yyyy/mm/dd',
+			});
+		$('.datepicker-out').pickadate({
+			formatSubmit: 'yyyy/mm/dd',
 				selectMonths: true, // Creates a dropdown to control month
 				selectYears: 15, // Creates a dropdown of 15 years to control year
 				max: true
-				});
+			});
 
-				google.charts.load('current', {packages: ['corechart', 'bar']});
-			google.charts.setOnLoadCallback(drawMultSeries);
+		google.charts.load('current', {packages: ['corechart', 'bar']});
+		google.charts.setOnLoadCallback(drawMultSeries);
 
-			function drawMultSeries() {
-	
+		function drawMultSeries() {
 
 
-		        var data = google.visualization.arrayToDataTable([
-        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
-        	['Approved', 300,'plan', 1000-300,   'achieved'],
-        	['Realized', 700, 'plan',1500-700,  'achieved']
-        	]);
 
-        var options = {
-        	chartArea: {width: '100%'},
-        	hAxis: {
-        		title: 'Total',
-        		minValue: 0
-        	},
-        	legend: { position: "none" },
-        };
-        var options_fullStacked = {
-        	title: 'Plan VS Achieved de 2016',
+			var data = google.visualization.arrayToDataTable([
+				['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
+				['Approved', 500,'achieved 500', 6700-500,   'GOAL '+6700, ''],
+				['Realized', 700, 'achieved 700',5050-700,  'GOAL '+5050, '']
+				]);
 
-        	isStacked: 'percent',
-        	height: 120,
-        	legend: {position: 'top', maxLines: 3},
-        	hAxis: {
-        		minValue: 0,
-        		ticks: [.3, .7 ]
-        	}
-        };
+			var options_fullStacked = {
+				isStacked: true,
+				height: 120,
+				legend: {position: 'top', maxLines: 3},
+				hAxis: {
+					minValue: 0,
+					ticks: [500,1000,2000,3000,4000,5000,6000,7000]
+				}
+			};
 
-        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-        chart.draw(data, options_fullStacked);
-		    }
+			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+			chart.draw(data, options_fullStacked);
+		}
 
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
-			});
-			</script>
+		});
+</script>
 </body>
 </html>
