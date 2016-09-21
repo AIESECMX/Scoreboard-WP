@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Convertion Rates</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="./js/jquery-2.2.3.min.js"></script>
+	<script src="./js/sortable.min.js"></script>
+	<link rel="stylesheet" href="./css/sortable-theme-bootstrap.css" />
+	<script src="./js/query.js">
+	</script>
+	<script type="text/javascript">
+	$(function() {
+		var x = document.getElementById("year");
+
+		for (i = new Date().getFullYear(); i > 2014; i--){
+			var option = document.createElement("option");
+			option.text = i;
+			option.value = i;
+			x.add(option, x[0]);
+		}
+		
+		document.getElementById("mes").selectedIndex = new Date().getMonth();
+
+
+		console.log("selected "+x.selectedIndex);
+	});
+	</script>
+
+</head>
+<body>
+	<input type="hidden"  id = "screen" value="2">
+	<section class="containter-fluid">
+		<section>
+			<artcicle id="goal" class="row">
+				<div class="col s12 m12 l12 center-align">
+					<h3 >Convertion Rates</h3>
+
+				</div>
+				<div class="col s3 m3 l3   center-align  section">
+					<h5 class="country-name">MC HUB</h5>
+					<img src="http://www.citland.com/images/mexico-flag.png?text=FLAG" alt="Flag">
+				</div>
+				<div class="col s9 m9 l9  center-align section">
+					<div id="chart_div"></div>
+				</div>
+			</article>
+		</section>
+
+		<!--INPUTS-->
+		<section class="container row">
+			
+
+			<div class="input-field col s3 m2 l2">
+				<select name="year" id="year">
+				</select>
+			</div>
+			<div class="input-field col s3 m2 l2">
+				<select name="mes" id="mes">
+					
+					<option value="0">January</option>
+					<option value="1">February</option>
+					<option value="2">March</option>
+					<option value="3">April</option>
+					<option value="4">May</option>
+					<option value="5">June</option>
+					<option value="6">July</option>
+					<option value="7">August</option>
+					<option value="8">September</option>
+					<option value="9">October</option>
+					<option value="10">November</option>
+					<option value="11">December</option>
+				</select>
+			</div>
+			<div class="input-field col s3 m2 l2 ">
+				<select name="programa" id="programa">
+					<option value="0">General</option>
+					<option value="1">oGV</option>
+					<option value="2">oGT</option>
+					<option value="3">iGV</option>
+					<option value="4">iGT</option>
+				</select>
+			</div>
+
+
+
+			<div class="input-field col s12 m1 l1">
+				<button  class="btn waves-effect waves-light" id="go_cr"  name="action">Go</button>	        			
+			</div>				
+			
+		</section>
+		<!--/INPUTS-->
+
+
+
+
+		<section class="container row">
+			<table  id = "rates" class="sortable-theme-bootstrap striped" data-sortable>
+				<thead >
+					<tr>
+						<th class="center-align" data-sortable-type="numeric">LC</th>
+						<th class="center-align" data-sortable-type="numeric">Open</th>
+						<th class="center-align" data-sortable-type="numeric">CR</th>
+						<th class="center-align" data-sortable-type="numeric">Accepted</th>
+						<th class="center-align" data-sortable-type="numeric">CR</th>
+						<th class="center-align" data-sortable-type="numeric">Approved</th>
+						<th class="center-align" data-sortable-type="numeric">CR</th>
+						<th class="center-align" data-sortable-type="numeric">Realized</th>
+						<th class="center-align" data-sortable-type="numeric">CR</th>
+						<th class="center-align" data-sortable-type="numeric">Completed</th>
+					</tr>
+					<tbody  id="tbodyid">
+
+					</tbody>
+				</table>
+			</section>
+
+
+
+
+		</section>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script>
+		$(document).ready(function() {
+			$('select').material_select();
+
+
+
+
+			google.charts.load('current', {packages: ['corechart', 'bar']});
+			google.charts.setOnLoadCallback(pl_vs_ach);
+
+
+	        $('#status').fadeOut(); // will first fade out the loading animation
+			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
+			$('body').delay(300).css({'overflow':'visible'});
+		});
+		</script>
+	</body>
+	</html>

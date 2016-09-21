@@ -4,11 +4,13 @@
  */
 
  var nu = 1;
- var data_cr = null;
+ 
  var mc_overall = null
  var mc_pva = null;
 
-
+ var year_global = null;
+ var month_global = null;
+ var data_cr = null;
 
 
 /*
@@ -32,16 +34,27 @@ $(function(){
 
 		break;
 		case 2:
-
+		//Convertion rates
+		show_cr_entity(2016,0,0);
+		$("#go_cr").click(function (){
+			var pr = document.getElementById("programa");
+			var pro = pr.options[pr.selectedIndex].value;
+			var m = document.getElementById("mes");
+			var month = m.options[m.selectedIndex].value;
+			var year = document.getElementById("year");
+			var y = year.options[year.selectedIndex].value;
+			show_cr_entity(y,month,pro);
+		});
 		break;
 		case 3:
-
+		//proyections 
 		show_plan_proj(0,-1);
 		$("#go_proj").click(function (){
 			var pr = document.getElementById("programa");
 			var pro = pr.options[pr.selectedIndex].value;
 			var m = document.getElementById("mes");
 			var month = m.options[m.selectedIndex].value;
+
 			show_plan_proj(pro,month);
 		});
 		break;
@@ -238,94 +251,121 @@ function display_mc_pva(mc_pva){
  * @param  {date} date  the year and month
  * @return {null}       will display the info in the corresponding table
  */
- function show_cr_entity(date,mc_id = 1589){
-// @todo: check if the coockie or sys var is set and iuse it, else make the post call
-	//@todo: get the month and year
-	var year = 2016;
-	var month = 6;
+ function show_cr_entity(y,m,pr,mc_id = 1589){
+	// @todo: check if the coockie or sys var is set and iuse it, else make the post call
 
+	var year = y;
+	var month = m;
 
-	var data = {
-		"op": 2,
-		"mc_id": mc_id,
-		"year": year,
-		"month": month
-	};
-	data = $(this).serialize() + "&" + $.param(data);
-	$.ajax({
-		type: "GET",
+	if (data_cr != null && year_global == year && month_global == month){
+		display_cr_entity(data_cr,pr);
+
+	}else{
+		year_global = year;
+		month_global = month;
+		var data = {
+			"op": 2,
+			"mc_id": mc_id,
+			"year": year,
+			"month": month
+		};
+		data = $(this).serialize() + "&" + $.param(data);
+		$.ajax({
+			type: "GET",
       	url: "./php/query.php", //Relative or absolute path to response.php file
       	dataType: "json",
       	data: data,
       	success: function(dat) {
-
-      		display_cr_entity(dat);
+      		data_cr = dat;
+      		display_cr_entity(dat,pr);
       	},
       	error: function(XMLHttpRequest, textStatus, errorThrown){
-      		$("#cr").innerHTML="no lol";
       	}
       });
+	}
 }
 
-function display_cr_entity(data){
-	var ogt_op = 0;
-	var ogv_op = 0;
-	var igv_op = 0;
-	var igt_op = 0;
-	var ogt_apl = 0;
-	var ogv_apl = 0;
-	var igv_apl = 0;
-	var igt_apl = 0;
-	var ogt_ap = 0;
-	var ogv_ap = 0;
-	var igv_ap = 0;
-	var igt_ap = 0;
-	var ogt_re = 0;
-	var ogv_re = 0;
-	var igv_re = 0;
-	var igt_re = 0;
+function display_cr_entity(data,pr){
+	console.log(JSON.stringify(data));
+	//UNCOMMENT FOR DEV
+	$("#tbodyid").empty();
+	
+	for(var i in data){
+		var app = 0;
+		var re = 0;
+		var op = 0;
+		var apl = 0;
 
 
-	for (var lc in data){
+		var tres = document.getElementById("rates").tBodies.item(0);
+		var newrow = tres.insertRow(-1);
+		var col;
+		console.log(data[i]["oGC"]);
+		if (pr == 0){
+			for (var j in data[i]){
+				app += parseInt(data[i][j].app_ach)||0;
+				re += parseInt(data[i][j].re_ach)||0;
+				op += parseInt(data[i][j].op_ach)||0;
+				apl += parseInt(data[i][j].apl_ach)||0;
+			}
+		}else{
+			var pro = "";
+			switch(parseInt(pr)){
+				case 1:
+				app = parseInt(data[i].oGC.app_ach)||0;
+				re = parseInt(data[i].oGC.re_ach)||0;
+				op = parseInt(data[i].oGC.op_ach)||0;
+				apl = parseInt(data[i].oGC.apl_ach)||0;
+				break;
+				case 2:
+				app = parseInt(data[i].oGT.app_ach)||0;
+				re = parseInt(data[i].oGT.re_ach)||0;
+				op = parseInt(data[i].oGT.op_ach)||0;
+				apl = parseInt(data[i].oGT.apl_ach)||0;
+				break;
+				case 3:
+				app = parseInt(data[i].iGC.app_ach)||0;
+				re = parseInt(data[i].iGC.re_ach)||0;
+				op = parseInt(data[i].iGC.op_ach)||0;
+				apl = parseInt(data[i].iGC.apl_ach)||0;
+				break;
+				case 4:
+				app = parseInt(data[i].iGT.app_ach)||0;
+				re = parseInt(data[i].iGT.re_ach)||0;
+				op = parseInt(data[i].iGT.op_ach)||0;
+				apl = parseInt(data[i].iGT.apl_ach)||0;
+				break;
+			}
 
-		ogt_op += parseInt(data[lc].oGT.op_ach);
-		ogt_apl += parseInt(data[lc].oGT.apl_ach);
-		ogt_ap += parseInt(data[lc].oGT.app_ach);
-		ogt_re += parseInt(data[lc].oGT.re_ach);
-		data[lc].oGT.cr_op_apl = ogt_apl/ogt_op;
-		data[lc].oGT.cr_apl_ap = ogt_ap/ogt_apl;
-		data[lc].oGT.cr_ap_re = ogt_ap/ogt_re;
-		
+		}
 
-		igv_op += parseInt(data[lc].iGC.op_ach);
-		igv_apl += parseInt(data[lc].iGC.apl_ach);
-		igv_ap += parseInt(data[lc].iGC.app_ach);
-		igv_re += parseInt(data[lc].iGC.re_ach);
-		data[lc].iGC.cr_op_apl = igv_apl/igv_op;
-		data[lc].iGC.cr_apl_ap = igv_ap/igv_apl;
-		data[lc].iGC.cr_ap_re = igv_ap/igv_re;
-		
-		igt_op += parseInt(data[lc].iGT.op_ach);
-		igt_apl += parseInt(data[lc].iGT.apl_ach);
-		igt_ap += parseInt(data[lc].iGT.app_ach);
-		igt_re += parseInt(data[lc].iGT.re_ach);
-		data[lc].iGT.cr_op_apl = igt_apl/igt_op;
-		data[lc].iGT.cr_apl_ap = igt_ap/igt_apl;
-		data[lc].iGT.cr_ap_re = igt_ap/igt_re;
+		col = newrow.insertCell(-1);
+		col.innerHTML=i;
+		col = newrow.insertCell(-1);
+		col.innerHTML=op||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=(op == 0)? "-":(((apl/op)*100).toFixed(2)||0)+"% <small class=\"orange-text\"> "+(((apl/op)*100).toFixed(2)||0)+"%</small>";
+		col = newrow.insertCell(-1);
+		col.innerHTML=apl||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=(apl == 0)? "-":(((app/apl)*100).toFixed(2)||0)+"% <small class=\"orange-text\"> "+((op == 0)? "-":(((apl/op)*100).toFixed(2)||0))+"%</small>";
+		col = newrow.insertCell(-1);
+		col.innerHTML=app||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=(app == 0)? "-":(((re/app)*100).toFixed(2)||0)+"% <small class=\"orange-text\"> "+((op == 0)? "-":(((app/op)*100).toFixed(2)||0))+"%</small>";
+		col = newrow.insertCell(-1);
+		col.innerHTML=re||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
 
-
-		ogv_op += parseInt(data[lc].oGC.op_ach);
-		ogv_apl += parseInt(data[lc].oGC.apl_ach);
-		ogv_ap += parseInt(data[lc].oGC.app_ach);
-		ogv_re += parseInt(data[lc].oGC.re_ach);
-		data[lc].oGC.cr_op_apl = ogv_apl/ogv_op;
-		data[lc].oGC.cr_apl_ap = ogv_ap/ogv_apl;
-		data[lc].oGC.cr_ap_re = ogv_ap/ogv_re;
-		
 	}
+	
 
-	data_cr = data;
-	document.getElementById("cr").innerHTML = JSON.stringify(data);
+
+
+	
 
 }
 
@@ -474,6 +514,7 @@ function show_plan_proj(pr,month, mc_id = 1589){
 	var m = month;
 	if (m == -1) m = new Date().getMonth();
 
+
 	var data = {
 		"op": 4,
 		"mc_id": mc_id,
@@ -506,7 +547,7 @@ function display_plan_proj(data){
 	//UNCOMENT FOR TEST
 		//document.getElementById("proj").innerHTML = JSON.stringify(data);
 
-		console.log(JSON.stringify(data));
+	//	console.log(JSON.stringify(data));
 	//UNCOMMENT FOR DEV
 	$("#tbodyid").empty();
 

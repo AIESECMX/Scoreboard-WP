@@ -12,7 +12,13 @@
 	<link rel="stylesheet" href="./css/sortable-theme-bootstrap.css" />
 	<script src="./js/query.js">
 	</script>
+	<script type="text/javascript">
+	$(function() {
 
+		document.getElementById("mes").selectedIndex = new Date().getMonth();
+
+	});
+	</script>
 </head>
 <body>
 	<input type="hidden"  id = "screen" value="3">
@@ -25,7 +31,7 @@
 				</div>
 				<div class="col s3 m3 l3   center-align  section">
 					<h5 class="country-name">MC HUB</h5>
-					<img src="http://placehold.it/50x50?text=FLAG" alt="Flag">
+					<img src="http://www.citland.com/images/mexico-flag.png?text=FLAG" alt="Flag">
 				</div>
 				<div class="col s9 m9 l9  center-align section">
 					<div id="chart_div"></div>
@@ -42,12 +48,11 @@
 						<option value="1">oGV</option>
 						<option value="2">oGT</option>
 						<option value="3">iGV</option>
-						<option value="3">iGT</option>
+						<option value="4">iGT</option>
 					</select>
 				</div>
 				<div class="input-field col s3 m2 l2">
 					<select name="mes" id="mes">
-						<option value="-1">Current</option>
 						<option value="0">January</option>
 						<option value="1">February</option>
 						<option value="2">March</option>
@@ -115,8 +120,6 @@
 			$('select').material_select();
 			$('.datepicker-in').pickadate({
 				formatSubmit: 'yyyy-mm-dd',
-				dateFormat: 'MM yy',
-
 				selectMonths: true, // Creates a dropdown to control month
 				selectYears: 15, // Creates a dropdown of 15 years to control year
 				max: true

@@ -184,11 +184,14 @@ function get_plan_projections($pr,$mc_id,$year,$month){
 	mysql_select_db('scoreboard');
 
 //conertion rate for LCs
+
+
 	$results = array();
-	if ($pr == 0 ){
+	if (intval($pr) == 0 ){
 		$sql = "SELECT app_plan, re_plan, op_plan, apl_plan, LC_name  from operation Inner join  LC on 
 		operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram 
 		where operation.year = ".$year." and operation.month = ".$month." and LC.MC_idMC = ".$mc_id;
+		//echo $sql;
 	}else{
 		 //* 	program id (general = 0, igt = 1, ogt = 2,igc = 3,ogc = 4)
 
@@ -196,6 +199,7 @@ function get_plan_projections($pr,$mc_id,$year,$month){
 		operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram 
 		where operation.year = ".$year." and operation.month = ".$month." and LC.MC_idMC = ".$mc_id." 
 		and operation.program_idprogram = ".$pr;
+		//echo $sql;
 	}
 	$res = mysql_query( $sql, $conn );
 
