@@ -35,7 +35,8 @@ $(function(){
 		break;
 		case 2:
 		//Convertion rates
-		show_cr_entity(2016,0,0);
+		var d = new Date();
+		show_cr_entity(d.getFullYear(),d.getMonth(),0);
 		$("#go_cr").click(function (){
 			var pr = document.getElementById("programa");
 			var pro = pr.options[pr.selectedIndex].value;
@@ -59,7 +60,22 @@ $(function(){
 		});
 		break;
 		case 4:
+		//achievement
+		var d = new Date();
+		show_plan_vs_ach_lc(d.getFullYear(),d.getMonth(),d.getFullYear(),d.getMonth());
+		$("#go_ach").click(function (){
 
+
+			var month_i = document.getElementById("month_in");
+			var m_i = month_i.options[month_i.selectedIndex].value;
+			var year_i = document.getElementById("year_in");
+			var y_i = year_i.options[year_i.selectedIndex].value;
+			var month_f = document.getElementById("month_out");
+			var m_f = month_f.options[month_f.selectedIndex].value;
+			var year_f = document.getElementById("year_out");
+			var y_f = year_f.options[year_f.selectedIndex].value;
+			show_plan_vs_ach_lc(y_i,m_i,y_f,m_f);
+		});
 		break;
 		case 5:
 
@@ -162,14 +178,12 @@ function pl_vs_ach(mc_id = 1589){
  	var app_ach = parseInt(data.app_ach);
  	var re_plan = parseInt(data.re_plan);
  	var re_ach = parseInt(data.re_ach);
-
 //@todo: set dinamyc goals or put it  in preferences or configs
 var data = google.visualization.arrayToDataTable([
 	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
 	['Approved', app_ach,'achieved '+app_ach, 6700-app_ach,   'GOAL '+6700, ''],
 	['Realized', re_ach, 'achieved '+re_ach,5050-re_ach,  'GOAL '+5050, '']
 	]);
-
 var options_fullStacked = {
 	isStacked: true,
 	height: 120,
@@ -441,21 +455,15 @@ function get_lc_ids(){}
 *whould return (lc, openPlan,openach,opengrowth,aplPlan,aplAch,aplgrowth,appPlan,AppAch,appgrowth,RePlan,reAch,regrowth,
 *coPla,coAch,cogrowth)
 */
-function show_plan_vs_ach_lc(start_date,end_date, mc_id = 1589){
-	
-	var year_start = 2016;
-	var month_start = 6;
-	var year_end = 2016;
-	var month_end = 6;
-
+function show_plan_vs_ach_lc(y_i,m_i,y_f,m_f, mc_id = 1589){
 
 	var data = {
 		"op": 3,
 		"mc_id": mc_id,
-		"year_start": year_start,
-		"month_start": month_start,
-		"year_end": year_end,
-		"month_end": month_end
+		"year_start": y_i,
+		"month_start": m_i,
+		"year_end": y_f,
+		"month_end": m_f
 	};
 	data = $(this).serialize() + "&" + $.param(data);
 	$.ajax({
@@ -464,21 +472,51 @@ function show_plan_vs_ach_lc(start_date,end_date, mc_id = 1589){
       	dataType: "json",
       	data: data,
       	success: function(dat) {
-
-
       		display_p_v_a_entity(dat);
       	},
       	error: function(XMLHttpRequest, textStatus, errorThrown){
-      		$("#p_v_a_lc").innerHTML="no lol";
+      		//$("#p_v_a_lc").innerHTML="no lol";
       	}
       });
-
 }
 
 
 function display_p_v_a_entity(data){
 
-	document.getElementById("p_v_a_lc").innerHTML = JSON.stringify(data);
+	console.log(JSON.stringify(data));
+	$("#tbodyid").empty();
+
+	for(var i in data){
+		var tres = document.getElementById("projections").tBodies.item(0);
+		var newrow = tres.insertRow(-1);
+		var col;
+		col = newrow.insertCell(-1);
+		col.innerHTML=i;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].op_ach||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].apl_ach||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].app_plan||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].app_ach||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=(data[i].app_plan==0)? "-":(data[i].app_ach/data[i].app_plan)||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].re_plan||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=data[i].re_ach||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML=(data[i].re_plan)?"-":(data[i].re_ach/data[i].re_plan)||0;
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
+		col = newrow.insertCell(-1);
+		col.innerHTML="?";
+		
+	}
+
 }
 
 
@@ -534,7 +572,7 @@ function show_plan_proj(pr,month, mc_id = 1589){
       		display_plan_proj(dat);
       	},
       	error: function(XMLHttpRequest, textStatus, errorThrown){
-      		$("#proj").innerHTML="no lol";
+      		//$("#proj").innerHTML="no lol";
       	}
       });
 
@@ -720,13 +758,13 @@ function show_plan_vs_ach_lc_d(start_date,end_date, mc_id = 1589){
       		$("#p_v_a_lc").innerHTML="no lol";
       	}
       });
-
 }
-
 
 function display_p_v_a_entity_d(data){
 
 	document.getElementById("ach_d").innerHTML = JSON.stringify(data);
+
+
 }
 
 /**

@@ -376,7 +376,7 @@ function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_
 	$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,
 	sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) apl_plan, LC_name  
 	from operation Inner join  LC on operation.LC_idLC = LC.idLC 
-	where operation.year Between ".$year_start." and ".$year_end." and operation.month Between ".$month_start." and  ".$month_end." 
+	where operation.year >= ".$year_start." and operation.year <=".$year_end." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
 	and LC.MC_idMC = ".$mc_id." group by LC_name";
 	$res = mysql_query( $sql, $conn );
 	if(! $res )

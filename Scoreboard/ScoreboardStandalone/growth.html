@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Growth</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="./js/table_collapse.js">  </script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<script src="./js/jquery-2.2.3.min.js"></script>
+	<script src="./js/sortable.min.js"></script>
+	<link rel="stylesheet" href="./css/sortable-theme-bootstrap.css" />
+	<script src="./js/query.js">
+	</script>
+</head>
+<body>
+	<section class="container-fluid">
+		<input type="hidden"  id = "screen" value="5">
+		<section class="containter-fluid">
+			<section>
+				<artcicle id="goal" class="row">
+					<div class="col s12 m12 l12 center-align">
+						<h3 >Growth</h3>
+
+					</div>
+					<div class="col s3 m3 l3   center-align  section">
+						<h5 class="country-name">MC HUB</h5>
+						<img src="http://www.citland.com/images/mexico-flag.png?text=FLAG" alt="Flag">
+					</div>
+					<div class="col s9 m9 l9  center-align section">
+						<div id="chart_div"></div>
+					</div>
+				</article>
+			</section>
+
+			<!-- this is the coollpasble table to be filled with the full data of the committees -->
+			<section class="container row section">
+				<article>
+					<div class="collapse-custom">
+						<!-- HEADING -->
+						<table clas="striped sortable-theme-minimal">
+							<thead>
+								<tr>
+
+									<th colspan="3" class="center-align grey darken-1 white-text">LC</th>
+									<th colspan="3" class="center-align grey darken-1 white-text">Growth</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<!-- ROW 1 -->
+									<td>
+										<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1" data-toggle="collapse" href="#collapseOne">
+											<h3>lol</h3>
+										</div>
+										<!-- HIDDING CONTANT -->
+										<div id="collapseOne" class="collapse" data-parent="bs-example-navbar-collapse-1">
+											<div class="panel-body">
+												
+												<artcicle id="goal" class="row">
+					
+													<div class="col s3 m3 l3   center-align  section">
+														<h5 class="country-name">Comite </h5>
+														
+													</div>
+													<div class="col s9 m9 l9  center-align section">
+														<div id="chart_div2"></div>
+													</div>
+												</article>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+									<!-- ROW 2 -->
+									<td>
+										<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-2" data-toggle="collapse" href="#collapseTwo">
+											<h3>comite 2</h3>
+										</div>
+
+										<div id="collapseTwo" class="collapse" data-parent="bs-example-navbar-collapse-2">
+											<div class="panel-body">
+												<div id="chart_div3" ></div>
+											</div>
+										</div>
+									</td>
+								</tr>
+								<tr>
+
+								</tbody>
+							</table>
+
+						</div>
+					</article>			
+				</section>
+
+
+				<!--Tabla-->
+				<section class="container row section">
+					<article>
+						<table class="striped sortable-theme-minimal" data-sortable>
+							<thead>
+								<tr>
+									<th data-sortable-type="">Mes</th>
+									<th data-sortable-type="numeric">2015</th>
+									<th data-sortable-type="numeric">2016</th>
+									<th data-sortable-type="numeric">Crec.Relativo</th>
+									<th data-sortable-type="numeric">Crec.Absoluto</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Enero</td>
+									<td>10</td>
+									<td>20</td>
+									<td>10%</td>
+									<td>11%</td>
+								</tr>
+								<tr>
+									<td>Febrero</td>
+									<td>20</td>
+									<td>30</td>
+									<td>40%</td>
+									<td>35%</td>
+								</tr>
+								<tr>
+									<td>Marzo</td>
+									<td>20</td>
+									<td>30</td>
+									<td>24%</td>
+									<td>35%</td>
+								</tr>
+								<tr>
+									<td>Abril</td>
+									<td>20</td>
+									<td>30</td>
+									<td>12%</td>
+									<td>35%</td>
+								</tr>
+							</tbody>
+						</table>
+					</article>			
+				</section>
+
+			</section>
+
+
+
+			<!-- Compiled and minified JavaScript -->
+			<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+			<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+			<script type="text/javascript" src="js/sortable.min.js"></script>
+			<script>
+			$(document).ready(function() {
+				$('select').material_select();
+
+				google.charts.load('current', {packages: ['corechart', 'bar']});
+				google.charts.setOnLoadCallback(pl_vs_ach);
+				google.charts.setOnLoadCallback(drawMultSeries);
+				function drawMultSeries() {
+
+				//Data 01
+				var data = new google.visualization.arrayToDataTable([
+					['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+					['Approved', 300,'plan', 1000-300,   'achieved'],
+					['Realized', 700, 'plan',1500-700,  'achieved']
+					]);
+
+
+				//Data 02
+				var data2 = new google.visualization.arrayToDataTable([
+					['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+					['Approved', 300,'plan', 1000-300,   'achieved'],
+					['Realized', 700, 'plan',1500-700,  'achieved']
+					]);
+
+		    	//Data 03
+		    	var data3 = new google.visualization.arrayToDataTable([
+		    		['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+		    		['Approved', 900,'plan', 1000-900,   'achieved'],
+		    		['Realized', 200, 'plan',1500-200,  'achieved']
+		    		]);
+
+		   		 /*
+	        		var options = {
+	        		chartArea: {width: '100%'},
+	        		hAxis: {
+	        			title: 'Total',
+	        			minValue: 0
+	        		},
+	        		legend: { position: "none" },
+	        	};*/
+
+	        		//Opciones para todos los chart
+	        		var options_fullStacked = {
+	        			title: 'Plan VS Achieved de 2016',
+
+	        			isStacked: true,
+	        			height: 120,
+	        			legend: {position: 'top', maxLines: 3},
+	        			hAxis: {
+	        				minValue: 0,
+	        				ticks: [.3, .7 ]
+	        			}
+	        		};
+
+	       		 //Chart1
+	       		 var chart = new google.visualization.BarChart(document.getElementById('chart_div3'));
+	       		 chart.draw(data3, options_fullStacked);
+	       		 //Nuevo Chart
+	       		 var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
+	       		 chart2.draw(data2, options_fullStacked);
+
+	       		}
+
+      			$('#status').fadeOut(); // will first fade out the loading animation
+				$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
+				$('body').delay(300).css({'overflow':'visible'});
+			});
+</script>
+</body>
+</html>
