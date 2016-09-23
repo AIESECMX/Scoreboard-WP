@@ -14,3 +14,7 @@ body {
 .btn-large{
 	width: 280px;
 }
+
+.background-img{
+	min-height: 100%;
+}
