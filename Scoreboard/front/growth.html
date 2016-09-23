@@ -11,58 +11,76 @@
 </head>
 <body>
 	<section class="container-fluid">
+		<section class="container-fluid">
+		<!--Menu-->
+		<nav class="blue darken-2" role="navigation">
+		    <div class="nav-wrapper container">
+		      <a id="logo-container" href="#" class="brand-logo"><img width="200px" src="https://aiesec.pe/wp-content/uploads/2014/11/aiesec-logo.png" alt=""></a>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="#" class="white-text">Global Ranking</a></li>
+		        <li><a href="#" class="white-text">General Report</a></li>
+		        <li><a href="#" class="white-text">Convertion Rate Report</a></li>
+		        <li><a href="#" class="white-text">Projections</a></li>
+		        <li><a href="#" class="white-text">LC by LC reality</a></li>
+		      </ul>
+
+		      <ul id="nav-mobile" class="side-nav white">
+		        <li><a href="#" class="black-text">Global Ranking</a></li>
+		        <li><a href="#" class="black-text">General Report</a></li>
+		        <li><a href="#" class="black-text">Convertion Rate Report</a></li>
+		        <li><a href="#" class="black-text">Projections</a></li>
+		        <li><a href="#" class="black-text">LC by LC reality</a></li>
+		      </ul>
+		      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="white-text material-icons">menu</i></a>
+		    </div>
+		 </nav>
+
 		<section>
 			<article id="goal" class="row">
-				<div class="col s12 m12 l12 center-align">
-					<h3>Growth</h3>
+				<div class="col s12 m12 l12 blue white-text">							
+					<h4 class="container section">Growth</h4>					
 				</div>
 				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
-					<h3>MC X-COUNTRY</h3>
+					<h4>MC X-COUNTRY</h4>
 					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
 				</div>
 				<div class="col s6 m5 l5 hide-on-small-only section">
 					<div class="section"></div>
-					<!--<div id="chart_div"></div>-->
+					<div id="chart_div0"></div>
 				</div>
 			</article>
 		</section>
-
-		<!--Charts-->
+		
+		<section class="container section" style="overflow:auto; height: 500px; ">
+			<div>
+				<ul class="collapsible popout" data-collapsible="accordion">
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>Católica</div>
+				      <div class="section"></div>
+				      <div id="chart_div1"width="200"></div>
+				    </li>
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>UDEP</div>
+				      <div class="section"></div>
+				      <div id="chart_div2"width="200"></div>
+				    </li>
+				    <li>
+				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>Chiclayo</div>
+				      <div class="section"></div>
+				      <div id="chart_div3" width="200"></div>
+				    </li>
+				</ul>
+			</div>
+		</section>           
 		<div class="section"></div>
-		<section class="container row section">
-			<article id="goals">
-				<table class="stripe">
-					<thead>
-						<tr>
-							<th>LC</th>
-							<th>Metas</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr>
-							<td>Católica</td>
-							<td><div id="chart_div" width="200"></div></td>
-						</tr>
-						<tr>
-							<td>UDEP</td>
-							<td><div id="chart_div2" width="200"></div></td>
-						</tr>
-						<tr>
-							<td>Chiclayo</td>
-							<td><div id="chart_div3" width="200"></div></td>
-						</tr>
-					</tbody>
-				</table>
-			</article>
-		</section>
 		
 		<!--Tabla-->
 		<section class="container row section">
-			<article>
+			<article style="overflow:auto; height: 200px; ">
 				<table class="striped sortable-theme-minimal" data-sortable>
 					<thead>
 						<tr>
-							<th data-sortable-type="">Mes</th>
+							<th data-sortable-type="" colspan="3">Mes</th>
 							<th data-sortable-type="numeric">2015</th>
 							<th data-sortable-type="numeric">2016</th>
 							<th data-sortable-type="numeric">Crec.Relativo</th>
@@ -71,28 +89,35 @@
 					</thead>
 					<tbody>
 						<tr>
-							<td>Enero</td>
+							<td colspan="3">Enero</td>
 							<td>10</td>
 							<td>20</td>
 							<td>10%</td>
 							<td>11%</td>
 						</tr>
 						<tr>
-							<td>Febrero</td>
+							<td colspan="3">Febrero</td>
 							<td>20</td>
 							<td>30</td>
 							<td>40%</td>
 							<td>35%</td>
 						</tr>
 						<tr>
-							<td>Marzo</td>
+							<td colspan="3">Marzo</td>
 							<td>20</td>
 							<td>30</td>
 							<td>24%</td>
 							<td>35%</td>
 						</tr>
 						<tr>
-							<td>Abril</td>
+							<td colspan="3">Abril</td>
+							<td>20</td>
+							<td>30</td>
+							<td>12%</td>
+							<td>35%</td>
+						</tr>
+						<tr>
+							<td colspan="3">Mayo</td>
 							<td>20</td>
 							<td>30</td>
 							<td>12%</td>
@@ -129,9 +154,20 @@
 			max: true
 		});
 
+		$('.collapsible').collapsible({
+		    accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+		})
+
+
 		google.charts.load('current', {packages: ['corechart', 'bar']});
 		google.charts.setOnLoadCallback(drawMultSeries);
 		function drawMultSeries() {
+			//Data 00
+			 var data0 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['Approved', 300,'plan', 1000-300,   'achieved'],
+        	['Realized', 700, 'plan',1500-700,  'achieved']
+        	]);
 
 			//Data 01
 		    var data = new google.visualization.arrayToDataTable([
@@ -179,7 +215,10 @@
 	        };
 
 	        //Chart1
-	        var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	        var chart0 = new google.visualization.BarChart(document.getElementById('chart_div0'));
+	        chart0.draw(data0, options_fullStacked);
+
+	        var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
 	        chart.draw(data, options_fullStacked);
 	        //Nuevo Chart
 	        var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
@@ -187,6 +226,7 @@
 	        //Nuevo Chart
 	        var chart3 = new google.visualization.BarChart(document.getElementById('chart_div3'));
 	        chart3.draw(data3, options_fullStacked);
+	        
 	    }
 
         $('#status').fadeOut(); // will first fade out the loading animation

@@ -10,17 +10,40 @@
 	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
 </head>
 <body>
-	<section class="containter-fluid">
+	<!--Menu-->
+	<nav class="blue darken-2" role="navigation">
+	    <div class="nav-wrapper container">
+	      <a id="logo-container" href="#" class="brand-logo"><img width="200px" src="https://aiesec.pe/wp-content/uploads/2014/11/aiesec-logo.png" alt=""></a>
+	      <ul class="right hide-on-med-and-down">
+	        <li><a href="#" class="white-text">Global Ranking</a></li>
+	        <li><a href="#" class="white-text">General Report</a></li>
+	        <li><a href="#" class="white-text">Convertion Rate Report</a></li>
+	        <li><a href="#" class="white-text">Projections</a></li>
+	        <li><a href="#" class="white-text">LC by LC reality</a></li>
+	      </ul>
+
+	      <ul id="nav-mobile" class="side-nav white">
+	        <li><a href="#" class="black-text">Global Ranking</a></li>
+	        <li><a href="#" class="black-text">General Report</a></li>
+	        <li><a href="#" class="black-text">Convertion Rate Report</a></li>
+	        <li><a href="#" class="black-text">Projections</a></li>
+	        <li><a href="#" class="black-text">LC by LC reality</a></li>
+	      </ul>
+	      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="white-text material-icons">menu</i></a>
+	    </div>
+	 </nav>
+  
+	<section class="containter">
 		<section>
 			<article id="goal" class="row">
-				<div class="col s12 m12 l12 center-align">
-					<h3>Convertion Rates</h3>
-				</div>
-				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only">
-					<h3>MC X-COUNTRY</h3>
+				<div class="col s12 m12 l12 blue white-text">							
+					<h4 class="container section">Convertion Rates</h4>					
+				</div>				
+				<div class="section col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only">
+					<h4>MC X-COUNTRY</h4>
 					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
 				</div>
-				<div class="col s6 m5 l5 hide-on-small-only">
+				<div class="col s6 m5	 l5 hide-on-small-only">
 					<div class="section"></div>
 					<div id="chart_div"></div>
 				</div>
@@ -78,29 +101,42 @@
 				</thead>
 				<tbody>
 					<!--Hacer Foreach a los TR-->
+					<!--0, 50, 75-->
+					<tr ng-repeat="mc in mcs20 | filter : search">						
+						<td class="center-align">UNAM</td>
+						<td class="center-align">100</td>
+						<td class="center-align">10</td>
+						<td class="center-align white-text cr-wrapper red"><span class="cr">10</span>% <small> 10%</small></td>
+						<td class="center-align">100</td>
+						<td class="center-align white-text cr-wrapper orange"><span class="cr">57</span>% <small> 40%</small></td>
+						<td class="center-align">35</td>
+						<td class="center-align white-text cr-wrapper green"><span class="cr">87,5</span>% <small> 35%</small></td>
+						<td class="center-align">340</td>
+						<td class="center-align white-text cr-wrapper green">97,1% <small> 34%</small></td>
+					</tr>
 					<tr ng-repeat="mc in mcs20 | filter : search">						
 						<td class="center-align">ITAM</td>
 						<td class="center-align">200</td>
 						<td class="center-align">300</td>
-						<td class="center-align">70% <small class="orange-text"> 70%</small></td>
+						<td class="center-align white-text orange">70% <small> 70%</small></td>
 						<td class="center-align">400</td>
-						<td class="center-align">57% <small class="red-text"> 40%</small></td>
+						<td class="center-align white-text cr-wrapper orange"><span class="cr">57</span>% <small> 40%</small></td>
 						<td class="center-align">35</td>
-						<td class="center-align">87,5% <small class="red-text"> 35%</small></td>
+						<td class="center-align white-text cr-wrapper green"><span class="cr">87,5</span>% <small> 35%</small></td>
 						<td class="center-align">34</td>
-						<td class="center-align">97,1% <small class="red-text"> 34%</small></td>
+						<td class="center-align white-text cr-wrapper green">97,1% <small> 34%</small></td>
 					</tr>
 					<tr ng-repeat="mc in mcs20 | filter : search">						
 						<td class="center-align">UNAM</td>
 						<td class="center-align">100</td>
-						<td class="center-align">70</td>
-						<td class="center-align">70% <small class="orange-text"> 70%</small></td>
-						<td class="center-align">1000</td>
-						<td class="center-align">57% <small class="red-text"> 40%</small></td>
+						<td class="center-align">100</td>
+						<td class="center-align white-text green">100% <small> 70%</small></td>
+						<td class="center-align">100</td>
+						<td class="center-align white-text cr-wrapper orange"><span class="cr">57</span>% <small> 40%</small></td>
 						<td class="center-align">35</td>
-						<td class="center-align">87,5% <small class="red-text"> 35%</small></td>
+						<td class="center-align white-text cr-wrapper green"><span class="cr">87,5</span>% <small> 35%</small></td>
 						<td class="center-align">340</td>
-						<td class="center-align">97,1% <small class="red-text"> 34%</small></td>
+						<td class="center-align white-text cr-wrapper green">97,1% <small> 34%</small></td>
 					</tr>
 				</tbody>
 			</table>
@@ -118,6 +154,7 @@
 		<script type="text/javascript" src="js/sortable.min.js"></script>
 		<script>
 		$(document).ready(function() {
+			$('.button-collapse').sideNav();
 	    	$('select').material_select();
 			$('.datepicker-in').pickadate({
 				formatSubmit: 'yyyy-mm-dd',
@@ -170,6 +207,7 @@
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
+
 			});
 			</script>
 </body>

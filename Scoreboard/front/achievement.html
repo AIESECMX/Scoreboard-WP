@@ -11,13 +11,36 @@
 </head>
 <body>
 	<section class="containter-fluid">
-		<section>
+		<!--Menu-->
+		<nav class="blue darken-2" role="navigation">
+		    <div class="nav-wrapper container">
+		      <a id="logo-container" href="#" class="brand-logo"><img width="200px" src="https://aiesec.pe/wp-content/uploads/2014/11/aiesec-logo.png" alt=""></a>
+		      <ul class="right hide-on-med-and-down">
+		        <li><a href="#" class="white-text">Global Ranking</a></li>
+		        <li><a href="#" class="white-text">General Report</a></li>
+		        <li><a href="#" class="white-text">Convertion Rate Report</a></li>
+		        <li><a href="#" class="white-text">Projections</a></li>
+		        <li><a href="#" class="white-text">LC by LC reality</a></li>
+		      </ul>
+
+		      <ul id="nav-mobile" class="side-nav white">
+		        <li><a href="#" class="black-text">Global Ranking</a></li>
+		        <li><a href="#" class="black-text">General Report</a></li>
+		        <li><a href="#" class="black-text">Convertion Rate Report</a></li>
+		        <li><a href="#" class="black-text">Projections</a></li>
+		        <li><a href="#" class="black-text">LC by LC reality</a></li>
+		      </ul>
+		      <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="white-text material-icons">menu</i></a>
+		    </div>
+		 </nav>
+
+		<section class="container-fluid">
 			<artcicle id="goal" class="row">
-				<div class="col s12 m12 l12 center-align">
-					<h3>Achievement</h3>
+				<div class="col s12 m12 l12 blue white-text">							
+					<h4 class="container section">Achievement</h4>					
 				</div>
 				<div class="col s6 m3 l3  offset-m2 offset-l2 center-align hide-on-small-only section">
-					<h3>MC X-COUNTRY</h3>
+					<h4>MC X-COUNTRY</h4>
 					<img src="http://placehold.it/90x60?text=FLAG" alt="Flag">
 				</div>
 				<div class="col s6 m5 l5 hide-on-small-only section">
@@ -61,7 +84,7 @@
 		</section>
 
 		<section class="container row section">
-			<table class="striped sortable-theme-bootstrap" data-sortable>
+			<table class="striped">
 				<thead>
 					<tr>
 						<th colspan="3"></th>
@@ -69,24 +92,43 @@
 						<th colspan="3" class="center-align grey darken-1 white-text">Realized</th>
 						<th colspan="3" class="center-align grey darken-1 white-text ">Completed</th>
 					</tr>
+					<tr class="white" heigth="0px">
+						<th class="center-align white-text">LC</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Open</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Accept</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Plan</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align white-text" data-sortable-type="numeric">%</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Plan</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align white-text" data-sortable-type="numeric">%</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Plan</th>
+						<th class="center-align white-text" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align white-text" data-sortable-type="numeric">%</th>	
+					</tr>
+				</thead>
+			</table>
+
+			<table class="striped sortable-theme-minimal" data-sortable>	
+				<thead>					
 					<tr>
 						<th class="center-align">LC</th>
-						<th class="center-align">Open</th>
-						<th class="center-align">Accept</th>
-						<th class="center-align">Plan</th>
-						<th class="center-align">Achieved</th>
-						<th class="center-align">%</th>
-						<th class="center-align">Plan</th>
-						<th class="center-align">Achieved</th>
-						<th class="center-align">%</th>
-						<th class="center-align">Plan</th>
-						<th class="center-align">Achieved</th>
-						<th class="center-align">%</th>	
+						<th class="center-align" data-sortable-type="numeric">Open</th>
+						<th class="center-align" data-sortable-type="numeric">Accept</th>
+						<th class="center-align" data-sortable-type="numeric">Plan</th>
+						<th class="center-align" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align" data-sortable-type="numeric">%</th>
+						<th class="center-align" data-sortable-type="numeric">Plan</th>
+						<th class="center-align" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align" data-sortable-type="numeric">%</th>
+						<th class="center-align" data-sortable-type="numeric">Plan</th>
+						<th class="center-align" data-sortable-type="numeric">Achieved</th>
+						<th class="center-align" data-sortable-type="numeric">%</th>	
 					</tr>
 				</thead>
 				<tbody>
 					<!--Hacer Foreach a los TR-->
-					<tr ng-repeat="mc in mcs20 | filter : search">						
+					<tr>						
 						<td class="center-align">ITAM</td>
 						<td class="center-align">200</td>
 						<td class="center-align">100</td>
@@ -123,13 +165,13 @@
 
 	</section>
 	<!-- Compiled and minified JavaScript -->
-		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>	
   		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-  		<script src="js/sortable.js"></script>
+  		<script src="js/sortable.min.js"></script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 		<script>
 		$(document).ready(function() {
+			$('.button-collapse').sideNav();
 	    	$('select').material_select();
 			$('.datepicker-in').pickadate({
 				formatSubmit: 'yyyy-mm-dd',
