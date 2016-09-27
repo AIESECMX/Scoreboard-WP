@@ -78,7 +78,20 @@ $(function(){
 		});
 		break;
 		case 5:
-
+		//achievement detailed
+		var d = new Date();
+		show_plan_vs_ach_lc_d(d.getFullYear(),d.getMonth(),d.getFullYear(),d.getMonth());
+		$("#go_ach_d").click(function (){
+			var month_i = document.getElementById("month_in");
+			var m_i = month_i.options[month_i.selectedIndex].value;
+			var year_i = document.getElementById("year_in");
+			var y_i = year_i.options[year_i.selectedIndex].value;
+			var month_f = document.getElementById("month_out");
+			var m_f = month_f.options[month_f.selectedIndex].value;
+			var year_f = document.getElementById("year_out");
+			var y_f = year_f.options[year_f.selectedIndex].value;
+			show_plan_vs_ach_lc_d(y_i,m_i,y_f,m_f);
+		});
 		break;
 		default:
 
@@ -178,24 +191,25 @@ function pl_vs_ach(mc_id = 1589){
  	var app_ach = parseInt(data.app_ach);
  	var re_plan = parseInt(data.re_plan);
  	var re_ach = parseInt(data.re_ach);
-//@todo: set dinamyc goals or put it  in preferences or configs
-var data = google.visualization.arrayToDataTable([
-	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
-	['Approved', app_ach,'achieved '+app_ach, 6700-app_ach,   'GOAL '+6700, ''],
-	['Realized', re_ach, 'achieved '+re_ach,5050-re_ach,  'GOAL '+5050, '']
-	]);
-var options_fullStacked = {
-	isStacked: true,
-	height: 120,
-	legend: {position: 'top', maxLines: 3},
-	hAxis: {
-		minValue: 0,
-		ticks: [500,1000,2000,3000,4000,5000,6000,7000]
-	}
-};
+	//@todo: set dinamyc goals or put it  in preferences or configs
+	var data = google.visualization.arrayToDataTable([
+		['Stage', 'Achieved',{role: 'tooltip' },{ role: 'style' }, 'Planned', {role: 'tooltip' } , { role: 'style' } ],		
+		['Approved', app_ach,'achieved'+app_ach,'color: #0A8EA0',  6700-app_ach,   'GOAL 6700', 'color: #e5e4e2'],
+		['Realized', re_ach, 'achieved'+re_ach,'color: #0A8EA0',5050-re_ach,  'GOAL 5050', 'color: #e5e4e2']
+		]);
+	var options_fullStacked = {
+		isStacked: true,
+		title: 'Term Goal',
+		height: 120,
+		legend: {position: 'top', maxLines: 3},
+		hAxis: {
+			minValue: 0,
+			ticks: [500,1000,2000,3000,4000,5000,6000,7000]
+		}
+	};
 
-var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-chart.draw(data, options_fullStacked);
+	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+	chart.draw(data, options_fullStacked);
 
 }
 
@@ -727,12 +741,7 @@ function display_growth(data){
 *whould return (lc, openPlan,openach,opengrowth,aplPlan,aplAch,aplgrowth,appPlan,AppAch,appgrowth,RePlan,reAch,regrowth,
 *coPla,coAch,cogrowth)
 */
-function show_plan_vs_ach_lc_d(start_date,end_date, mc_id = 1589){
-	
-	var year_start = 2016;
-	var month_start = 6;
-	var year_end = 2016;
-	var month_end = 6;
+function show_plan_vs_ach_lc_d(year_start,month_start,year_end,month_end, mc_id = 1589){
 
 
 	var data = {
