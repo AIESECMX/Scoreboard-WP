@@ -10,6 +10,61 @@
 	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
 </head>
 <body>
+	<!--SPINNER-->
+    	<div id="preloader">
+	        <div id="status">
+	            <div class="preloader-wrapper big active">
+	                <div class="spinner-layer spinner-blue">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-red">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-yellow">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-green">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    	<!--/SPINNER-->
 	<!--Menu-->
 	<nav class="blue darken-2" role="navigation">
 	    <div class="nav-wrapper container">
@@ -207,7 +262,6 @@
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
-
 			});
 			</script>
 </body>

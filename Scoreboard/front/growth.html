@@ -8,8 +8,65 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
+	<!--CUSTOM-->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 </head>
 <body>
+	<!--SPINNER-->
+    	<div id="preloader">
+	        <div id="status">
+	            <div class="preloader-wrapper big active">
+	                <div class="spinner-layer spinner-blue">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-red">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-yellow">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+
+	                <div class="spinner-layer spinner-green">
+	                    <div class="circle-clipper left">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="gap-patch">
+	                        <div class="circle"></div>
+	                    </div>
+	                    <div class="circle-clipper right">
+	                        <div class="circle"></div>
+	                    </div>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+    	<!--/SPINNER-->
 	<section class="container-fluid">
 		<section class="container-fluid">
 		<!--Menu-->
@@ -51,30 +108,224 @@
 			</article>
 		</section>
 		
-		<section class="container section" style="overflow:auto; height: 500px; ">
-			<div>
-				<ul class="collapsible popout" data-collapsible="accordion">
-				    <li>
-				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>Católica</div>
-				      <div class="section"></div>
-				      <div id="chart_div1"width="200"></div>
-				    </li>
-				    <li>
-				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>UDEP</div>
-				      <div class="section"></div>
-				      <div id="chart_div2"width="200"></div>
-				    </li>
-				    <li>
-				      <div class="collapsible-header"><i class="material-icons">&#xE83A;</i>Chiclayo</div>
-				      <div class="section"></div>
-				      <div id="chart_div3" width="200"></div>
-				    </li>
-				</ul>
+		<section class="container section">
+			<div class="row">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  	<div class="panel panel-default">
+				    	<div class="panel-heading" role="tab" id="headingOne">
+				      		<h4 class="panel-title">
+				        		<a class="black-text light header-t" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">LC #01 <i class="material-icons">arrow_drop_down</i></a>
+				      			<div id="chart_div1"></div>
+				      		</h4>
+				    	</div>
+				    	<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+				      		<div class="panel-body">				      			
+				      			<article class="row">
+				      				<div class="col s12 m12 l12">
+				      					<div id="chart_div4"></div>
+					      			</div>					      			
+				      			</article>
+				      			<article class="row" style="overflow:auto; height: 200px; ">
+				      				<table class="striped sortable-theme-minimal" data-sortable>
+										<thead>
+											<tr>
+												<th data-sortable-type="" colspan="3">Mes</th>
+												<th data-sortable-type="numeric">2015</th>
+												<th data-sortable-type="numeric">2016</th>
+												<th data-sortable-type="numeric">Crec.Relativo</th>
+												<th data-sortable-type="numeric">Crec.Absoluto</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3">Enero</td>
+												<td>10</td>
+												<td>20</td>
+												<td>10%</td>
+												<td>11%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Febrero</td>
+												<td>20</td>
+												<td>30</td>
+												<td>40%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Marzo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>24%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Abril</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Mayo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+										</tbody>
+									</table>
+				      			</article>				      			
+				      		</div>
+				    	</div>
+					</div>
+				</div>
 			</div>
-		</section>           
-		<div class="section"></div>
+			<div class="row">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  	<div class="panel panel-default">
+				    	<div class="panel-heading" role="tab" id="headingTwo">
+				      		<h4 class="panel-title">
+				        		<a  class="black-text header-t" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">LC #02 <i class="material-icons">arrow_drop_down</i></a>
+				      			<div id="chart_div2"></div>
+				      		</h4>
+				    	</div>
+				    	<div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+				      		<div class="panel-body">				      			
+				      			<article class="row">
+				      				<div class="col s12 m12 l12">
+				      					<div id="chart_div5"></div>
+					      			</div>
+				      			</article>
+				      			<article class="row" style="overflow:auto; height: 200px; ">
+				      				<table class="striped sortable-theme-minimal" data-sortable>
+										<thead>
+											<tr>
+												<th data-sortable-type="" colspan="3">Mes</th>
+												<th data-sortable-type="numeric">2015</th>
+												<th data-sortable-type="numeric">2016</th>
+												<th data-sortable-type="numeric">Crec.Relativo</th>
+												<th data-sortable-type="numeric">Crec.Absoluto</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3">Enero</td>
+												<td>10</td>
+												<td>20</td>
+												<td>10%</td>
+												<td>11%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Febrero</td>
+												<td>20</td>
+												<td>30</td>
+												<td>40%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Marzo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>24%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Abril</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Mayo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+										</tbody>
+									</table>
+				      			</article>		      			
+				      		</div>
+				    	</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				  	<div class="panel panel-default">
+				    	<div class="panel-heading" role="tab" id="headingThree">
+				      		<h4 class="panel-title">
+				        		<a  class="black-text header-t" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="true" aria-controls="collapseThree">LC #03 <i class="material-icons">arrow_drop_down</i></a>
+				      			<div id="chart_div3"></div>
+				      		</h4>
+				    	</div>
+				    	<div id="collapseThree" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingThree">
+				      		<div class="panel-body">				      			
+				      			<article class="row">
+				      				<div class="col s12 m12 l12">
+				      					<div id="chart_div6"></div>
+					      			</div>
+					      			<article class="row" style="overflow:auto; height: 200px; ">
+				      				<table class="striped sortable-theme-minimal" data-sortable>
+										<thead>
+											<tr>
+												<th data-sortable-type="" colspan="3">Mes</th>
+												<th data-sortable-type="numeric">2015</th>
+												<th data-sortable-type="numeric">2016</th>
+												<th data-sortable-type="numeric">Crec.Relativo</th>
+												<th data-sortable-type="numeric">Crec.Absoluto</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td colspan="3">Enero</td>
+												<td>10</td>
+												<td>20</td>
+												<td>10%</td>
+												<td>11%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Febrero</td>
+												<td>20</td>
+												<td>30</td>
+												<td>40%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Marzo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>24%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Abril</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+											<tr>
+												<td colspan="3">Mayo</td>
+												<td>20</td>
+												<td>30</td>
+												<td>12%</td>
+												<td>35%</td>
+											</tr>
+										</tbody>
+									</table>
+				      			</article>
+				      			</article>				      			
+				      		</div>
+				    	</div>
+					</div>
+				</div>
+			</div>
+		</section>
 		
 		<!--Tabla-->
+		<!--
 		<section class="container row section">
 			<article style="overflow:auto; height: 200px; ">
 				<table class="striped sortable-theme-minimal" data-sortable>
@@ -127,19 +378,20 @@
 				</table>
 			</article>			
 		</section>
+		-->
 
 	</section>
-
-
 
 	<!-- Compiled and minified JavaScript -->
 	<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 	<script type="text/javascript" src="js/sortable.min.js"></script>
 	<script>
 	$(document).ready(function() {
+		$('.collapse').collapse()
     	$('select').material_select();
 		$('.datepicker-in').pickadate({
 			formatSubmit: 'yyyy-mm-dd',
@@ -191,6 +443,34 @@
         	['Realized', 700, 'plan',1500-700,  'achieved']
         	]);
 
+        	//Productos
+        	//Data 04
+		    var data4 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['iGET', 300,'plan', 1000-300,   'achieved'],
+        	['oGET', 700, 'plan',1500-700,  'achieved'],
+        	['iGV', 200, 'plan',1500-200,  'achieved'],
+        	['oGV', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+		    //Data 05
+		    var data5 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['iGET', 300,'plan', 1000-300,   'achieved'],
+        	['oGET', 700, 'plan',1500-700,  'achieved'],
+        	['iGV', 200, 'plan',1500-200,  'achieved'],
+        	['oGV', 700, 'plan',1500-700,  'achieved']
+        	]);
+
+		    //Data 06
+		    var data6 = new google.visualization.arrayToDataTable([
+        	['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  ],
+        	['iGET', 300,'plan', 1000-300,   'achieved'],
+        	['oGET', 700, 'plan',1500-700,  'achieved'],
+        	['iGV', 200, 'plan',1500-200,  'achieved'],
+        	['oGV', 700, 'plan',1500-700,  'achieved']
+        	]);
+
 		    /*
 	        var options = {
 	        	chartArea: {width: '100%'},
@@ -214,6 +494,17 @@
 	        	}
 	        };
 
+	        var options_fullStackedProductos = {
+	        	title: 'Plan VS Achieved de 2016',
+	        	isStacked: 'percent',
+	        	height: 300,
+	        	legend: {position: 'top', maxLines: 3},
+	        	hAxis: {
+	        		minValue: 0,
+	        		ticks: [.3, .7 ]
+	        	}
+	        };
+
 	        //Chart1
 	        var chart0 = new google.visualization.BarChart(document.getElementById('chart_div0'));
 	        chart0.draw(data0, options_fullStacked);
@@ -226,6 +517,18 @@
 	        //Nuevo Chart
 	        var chart3 = new google.visualization.BarChart(document.getElementById('chart_div3'));
 	        chart3.draw(data3, options_fullStacked);
+
+	        //Nuevo Chart - productos
+	        var chart4 = new google.visualization.ColumnChart(document.getElementById('chart_div4'));
+	        chart4.draw(data4, options_fullStackedProductos);
+
+	        //Nuevo Chart - productos
+	        var chart5 = new google.visualization.ColumnChart(document.getElementById('chart_div5'));
+	        chart5.draw(data5, options_fullStackedProductos);
+
+			//Nuevo Chart - productos
+	        var chart6 = new google.visualization.ColumnChart(document.getElementById('chart_div6'));
+	        chart6.draw(data6, options_fullStackedProductos);
 	        
 	    }
 
