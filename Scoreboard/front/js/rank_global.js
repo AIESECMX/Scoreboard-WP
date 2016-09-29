@@ -137,6 +137,22 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 				rankGCDP.push({
 					"id": id, 
 					"name": name, 
+					"ogv_re": ogcdp.re,
+					"ogv_app_app": ogcdp.app_app,
+					"ogv_app_apps": ogcdp.app_apps,
+					"ogv_ma_app": ogcdp.ma_app,
+					"ogv_ma_apps": ogcdp.ma_app,
+					"ogv_appro": ogcdp.appro,
+					"ogv_comp": ogcdp.comp,
+
+					"igv_re": data.analytics.total_realized.doc_count,
+					"igv_app_app": data.analytics.total_applications.applicants.value,
+					"igv_app_apps": data.analytics.total_applications.doc_count,
+					"igv_ma_app": data.analytics.total_an_accepted.unique_profiles.value,
+					"igv_ma_apps": data.analytics.total_matched.doc_count,
+					"igv_appro": data.analytics.total_approvals.doc_count,
+					"igv_comp": data.analytics.total_completed.doc_count,
+
 					"re": ogcdp.re + data.analytics.total_realized.doc_count, //6
 					"app_app": ogcdp.app_app + data.analytics.total_applications.applicants.value, //1
 					"app_apps": ogcdp.app_apps + data.analytics.total_applications.doc_count, //2
@@ -186,6 +202,31 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 				rankOGIP.push({
 					"id": id, 
 					"name": name, 
+
+					"ogv_re": gcdp.ogv_re,
+					"ogv_app_app": gcdp.ogv_app_app,
+					"ogv_app_apps": gcdp.ogv_app_apps,
+					"ogv_ma_app": gcdp.ogv_ma_app,
+					"ogv_ma_apps": gcdp.ogv_ma_app,
+					"ogv_appro": gcdp.ogv_appro,
+					"ogv_comp": gcdp.ogv_comp,
+
+					"igv_re": gcdp.igv_re,
+					"igv_app_app": gcdp.igv_app_app,
+					"igv_app_apps": gcdp.igv_app_apps,
+					"igv_ma_app": gcdp.igv_ma_app,
+					"igv_ma_apps": gcdp.igv_ma_app,
+					"igv_appro": gcdp.igv_appro,
+					"igv_comp": gcdp.igv_comp,
+
+					"ogt_re": data.analytics.total_realized.doc_count, //6
+					"ogt_app_app": data.analytics.total_applications.applicants.value, //1
+					"ogt_app_apps": data.analytics.total_applications.doc_count, //2
+					"ogt_ma_app": data.analytics.total_an_accepted.unique_profiles.value, //3
+					"ogt_ma_apps": data.analytics.total_matched.doc_count, //4
+					"ogt_appro": data.analytics.total_approvals.doc_count, //5
+					"ogt_comp": data.analytics.total_completed.doc_count, //7
+
 					"re": gcdp.re + data.analytics.total_realized.doc_count, //6
 					"app_app": gcdp.app_app + data.analytics.total_applications.applicants.value, //1
 					"app_apps": gcdp.app_apps + data.analytics.total_applications.doc_count, //2
@@ -234,6 +275,39 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 				rankGIP.push({
 					"id": id, 
 					"name": name, 
+					
+					"ogv_re": ogip.ogv_re,
+					"ogv_app_app": ogip.ogv_app_app,
+					"ogv_app_apps": ogip.ogv_app_apps,
+					"ogv_ma_app": ogip.ogv_ma_app,
+					"ogv_ma_apps": ogip.ogv_ma_app,
+					"ogv_appro": ogip.ogv_appro,
+					"ogv_comp": ogip.ogv_comp,
+
+					"igv_re": ogip.igv_re,
+					"igv_app_app": ogip.igv_app_app,
+					"igv_app_apps": ogip.igv_app_apps,
+					"igv_ma_app": ogip.igv_ma_app,
+					"igv_ma_apps": ogip.igv_ma_app,
+					"igv_appro": ogip.igv_appro,
+					"igv_comp": ogip.igv_comp,
+
+					"ogt_re": ogip.ogt_re,
+					"ogt_app_app": ogip.ogt_app_app,
+					"ogt_app_apps": ogip.ogt_app_apps,
+					"ogt_ma_app": ogip.ogt_ma_app,
+					"ogt_ma_apps": ogip.ogt_ma_app,
+					"ogt_appro": ogip.ogt_appro,
+					"ogt_comp": ogip.ogt_comp,
+
+					"igt_re": data.analytics.total_realized.doc_count, //6
+					"igt_app_app": data.analytics.total_applications.applicants.value, //1
+					"igt_app_apps": data.analytics.total_applications.doc_count, //2
+					"igt_ma_app": data.analytics.total_an_accepted.unique_profiles.value, //3
+					"igt_ma_apps": data.analytics.total_matched.doc_count, //4
+					"igt_appro": data.analytics.total_approvals.doc_count, //5
+					"igt_comp": data.analytics.total_completed.doc_count, //7
+
 					"re": ogip.re + data.analytics.total_realized.doc_count, //6
 					"app_app": ogip.app_app + data.analytics.total_applications.applicants.value, //1
 					"app_apps": ogip.app_apps + data.analytics.total_applications.doc_count, //2
@@ -241,8 +315,9 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 					"ma_apps": ogip.ma_apps + data.analytics.total_matched.doc_count, //4
 					"appro": ogip.appro + data.analytics.total_approvals.doc_count, //5
 					"comp": ogip.comp + data.analytics.total_completed.doc_count //7
-				});
 
+				});
+				console.log('test');
 				if(j == len) {
 					rankGIP.sort(function(a, b) {
 						return parseFloat(b.re) - parseFloat(a.re);
