@@ -25,11 +25,21 @@
 		
 		document.getElementById("month_in").selectedIndex = new Date().getMonth();
 
+		var y = document.getElementById("year_out");
+
+		for (i = new Date().getFullYear(); i > 2014; i--){
+			var option = document.createElement("option");
+			option.text = i;
+			option.value = i;
+			y.add(option, y[0]);
+		}
+		
+		document.getElementById("month_out").selectedIndex = new Date().getMonth();
 	});
 	</script>
 </head>
 <body>
-	<input type="hidden"  id = "screen" value="1">
+	<input type="hidden"  id = "screen" value="5">
 	<section class="container-fluid">
 		<!--Menu-->
 		<nav class="blue darken-2" role="navigation">
@@ -61,7 +71,7 @@
 			<section>
 				<artcicle id="goal" class="row">
 					<div class="col s12 m12 l12 blue white-text center-align">							
-						<h3 >Growth</h3>
+						<h3 >Achievement Detailed</h3>
 
 					</div>
 					<div class="col s3 m3 l3   center-align  section">
@@ -73,16 +83,69 @@
 					</div>
 				</article>
 			</section>
+			<!--INPUTS-->
+			<section class="container row">
+				<div class="input-field col s3 m2 l2">
+					<select name="year_in" id="year_in">
+					</select>
+					<label for="access_token">Año inicio</label>
 
+				</div>
+				<div class="input-field col s3 m2 l2">
+					<select name="month_in" id="month_in">
 
-			<section class="container" >
+						<option value="0">January</option>
+						<option value="1">February</option>
+						<option value="2">March</option>
+						<option value="3">April</option>
+						<option value="4">May</option>
+						<option value="5">June</option>
+						<option value="6">July</option>
+						<option value="7">August</option>
+						<option value="8">September</option>
+						<option value="9">October</option>
+						<option value="10">November</option>
+						<option value="11">December</option>
+					</select>
+					<label for="access_token">Mes inicio</label>
+				</div>
+				<div class="input-field col s3 m2 l2">
+					<select name="year_out" id="year_out">
+					</select>		
+					<label for="access_token">Año fin</label>
+				</div>				
+				<div class="input-field col s3 m2 l2">
+					<select name="month_out" id="month_out">
+						<option value="0">January</option>
+						<option value="1">February</option>
+						<option value="2">March</option>
+						<option value="3">April</option>
+						<option value="4">May</option>
+						<option value="5">June</option>
+						<option value="6">July</option>
+						<option value="7">August</option>
+						<option value="8">September</option>
+						<option value="9">October</option>
+						<option value="10">November</option>
+						<option value="11">December</option>
+					</select>		
+					<label for="access_token">Mes fin</label>
+				</div>				
+
+				<div class="input-field col s2 m1 l1">
+					<button  class="btn waves-effect waves-light" id="go_ach_d" name="action">Go</button>
+				</div>				
+			</section>
+			<!--/INPUTS-->
+
+			<section class="container section" >
 				<div>
-					<ul class="collapsible popout" data-collapsible="accordion" id = "list">
+					<ul class="collapsible popout " data-collapsible="accordion" id = "list">
 						
 					</ul>
 				</div>
 			</section>           
-			
+			<div class="section"></div>
 
 			<!--Tabla-->
 
