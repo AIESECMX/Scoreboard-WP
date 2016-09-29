@@ -324,23 +324,24 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 					});
 
 					//RANK 20
-					/*
+					
 					for (var i = 0; i < 20; i++) {			
 						rankMcs20.push({
-							"id":   rankGCDP[i].id,
-							"name": rankGCDP[i].name,
-							"apps":   rankGCDP[i].apps,
-							"app_app": rankGCDP[i].app_app, //1
-							"app_apps": rankGCDP[i].app_apps, //2
-							"ma_app": rankGCDP[i].ma_app, //3
-							"ma_apps": rankGCDP[i].ma_apps, //4
-							"appro": rankGCDP[i].appro, //5
-							"comp": rankGCDP[i].comp //7
+							"id":   rankGIP[i].id,
+							"name": rankGIP[i].name,
+							"apps":   rankGIP[i].apps,
+							"app_app": rankGIP[i].app_app, //1
+							"app_apps": rankGIP[i].app_apps, //2
+							"ma_app": rankGIP[i].ma_app, //3
+							"ma_apps": rankGIP[i].ma_apps, //4
+							"appro": rankGIP[i].appro, //5
+							"comp": rankGIP[i].comp //7
 						});
 					};
-					*/
+					
 
 					$scope.mcs20 = rankGIP;
+					console.log(rankGIP);
 					rank(rankGIP);
 					spinner();
 				};	
@@ -408,7 +409,8 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	            name: 'Total',
 	            colorByPoint: true,
 	            //Enrique
-	            data: [{
+	            data:
+	            [{
 	                name: '1. ' + ranking[0].name,
 	                y: ranking[0].re,
 	                drilldown: ranking[0].name
@@ -491,12 +493,14 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	            }*/]
 	        }],
 	        drilldown: {
-	            series: [
+	            series:
+	            [
 	            {
 	                name: ranking[0].name,
 	                id: ranking[0].name,
 	                //Enrique
-	                data: [
+	                data: 
+	                [
 	                    [
 	                        'app/Applicants',
 	                        ranking[0].app_app
@@ -672,7 +676,8 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	                        ranking[5].comp
 	                    ]
 	                ]
-	            },{
+	            },
+	            {
 	                name: ranking[6].name,
 	                id: ranking[6].name,
 	                data: [
@@ -701,7 +706,8 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	                        ranking[6].comp
 	                    ]
 	                ]
-	            },{
+	            },
+	            {
 	                name: ranking[7].name,
 	                id: ranking[7].name,
 	                data: [
@@ -730,7 +736,8 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	                        ranking[7].comp
 	                    ]
 	                ]
-	            },{
+	            },
+	            {
 	                name: ranking[8].name,
 	                id: ranking[8].name,
 	                data: [
@@ -759,7 +766,8 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	                        ranking[8].comp
 	                    ]
 	                ]
-	            },{
+	            },
+	            {
 	                name: ranking[9].name,
 	                id: ranking[9].name,
 	                data: [
