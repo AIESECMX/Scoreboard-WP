@@ -324,7 +324,7 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 					});
 
 					//RANK 20
-					
+					/*
 					for (var i = 0; i < 20; i++) {			
 						rankMcs20.push({
 							"id":   rankGIP[i].id,
@@ -337,7 +337,7 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 							"appro": rankGIP[i].appro, //5
 							"comp": rankGIP[i].comp //7
 						});
-					};
+					};*/
 					
 
 					$scope.mcs20 = rankGIP;
