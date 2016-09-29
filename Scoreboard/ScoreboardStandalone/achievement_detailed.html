@@ -7,7 +7,6 @@
 	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
-	<link rel="stylesheet" type="text/css" href="css/sortable-theme-minimal.css">
 	<script src="./js/jquery-2.2.3.min.js"></script>
 	<script src="./js/sortable.min.js"></script>
 	<link rel="stylesheet" href="./css/sortable-theme-bootstrap.css" />
@@ -141,119 +140,8 @@
 
 			<section class="container section" >
 				<div>
-					<ul class="collapsible popout " data-collapsible="accordion">
-						<li>
-							<div class="collapsible-header" >
-								
-								<div id="chart_div1" ></div>
-							</div>
-
-							<div class="collapsible-body " >
-
-								<div id="chart_divx" class="center-align"></div>
-								
-								
-
-								<table class="striped sortable-theme-minimal " data-sortable>
-									<thead>
-										<tr>
-											<th colspan="3"></th>
-											<th colspan="3" class="center-align grey darken-1 white-text">Approved</th>
-											<th colspan="3" class="center-align grey darken-1 white-text">Realized</th>
-											<th colspan="3" class="center-align grey darken-1 white-text ">Completed</th>
-										</tr>
-										<tr>
-											<th class="center-align">Programa</th>
-											<th class="center-align" data-sortable-type="numeric">Open</th>
-											<th class="center-align" data-sortable-type="numeric">Accept</th>
-											<th class="center-align" data-sortable-type="numeric">Plan</th>
-											<th class="center-align" data-sortable-type="numeric">Achieved</th>
-											<th class="center-align" data-sortable-type="numeric">%</th>
-											<th class="center-align" data-sortable-type="numeric">Plan</th>
-											<th class="center-align" data-sortable-type="numeric">Achieved</th>
-											<th class="center-align" data-sortable-type="numeric">%</th>
-											<th class="center-align" data-sortable-type="numeric">Plan</th>
-											<th class="center-align" data-sortable-type="numeric">Achieved</th>
-											<th class="center-align" data-sortable-type="numeric">%</th>	
-										</tr>
-									</thead>
-									<tbody>
-										<!--Hacer Foreach a los TR-->
-										<tr>						
-											<td class="center-align">oGV</td>
-											<td class="center-align">200</td>
-											<td class="center-align">100</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align" class="orange">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-										</tr>
-										<tr>						
-											<td class="center-align">iGV</td>
-											<td class="center-align">200</td>
-											<td class="center-align">100</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align" class="orange">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-										</tr>
-										<tr>						
-											<td class="center-align">oGt</td>
-											<td class="center-align">200</td>
-											<td class="center-align">100</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align" class="orange">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-										</tr>
-										<tr>						
-											<td class="center-align">igt</td>
-											<td class="center-align">200</td>
-											<td class="center-align">100</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align" class="orange">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-											<td class="center-align">70</td>
-										</tr>
-
-
-									</tbody>
-								</table>
-								
-								
-							</div>
-
-						</li>
-						<li>
-							<div class="collapsible-header"><i class="material-icons">&#xE83A;</i>UDEP</div>
-
-							<div class="collapsible-body" id="chart_div2"width="200"></div>
-						</li>
-						<li>
-							<div class="collapsible-header"><i class="material-icons">&#xE83A;</i>Chiclayo</div>
-
-							<div class="collapsible-body" id="chart_div3" width="200"></div>
-						</li>
+					<ul class="collapsible popout " data-collapsible="accordion" id = "list">
+						
 					</ul>
 				</div>
 			</section>           
@@ -296,118 +184,10 @@
 
 
 			google.charts.load('current', {packages: ['corechart', 'bar']});
-			google.charts.setOnLoadCallback(drawMultSeries);
+			//google.charts.setOnLoadCallback(drawMultSeries);
 			google.charts.setOnLoadCallback(pl_vs_ach);
 
-			function drawMultSeries() {
-
-				//Data 01
-				var data = new google.visualization.arrayToDataTable([
-					['Stage', 'Achieved',{role: 'tooltip' }, { role: 'style' }, { role: 'annotation' }, 'Planned', {role: 'tooltip' }  , { role: 'style' }, { role: 'annotation' }],
-					['Catolica', 700, 'plan','#037Ef3',700,1500-700,  'achieved', 'color: #e5e4e2',1500]
-					]);
-
-
-				//Data 02
-				var data2 = new google.visualization.arrayToDataTable([
-					['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  , { role: 'style' }],
-					['Approved', 300,'plan', 1000-300,   'achieved', 'color: #e5e4e2'],
-					['Realized', 700, 'plan',1500-700,  'achieved', 'color: #e5e4e2']
-					]);
-
-		    	//Data 03
-		    	var data3 = new google.visualization.arrayToDataTable([
-		    		['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' }  , { role: 'style' }],
-		    		['Approved', 300,'plan', 1000-300,   'achieved', 'color: #e5e4e2'],
-		    		['Realized', 700, 'plan',1500-700,  'achieved', 'color: #e5e4e2']
-		    		]);
-
-		   		 /*
-	       		 var options = {
-	        		chartArea: {width: '100%'},
-	        		hAxis: {
-	        		title: 'Total',
-	        		minValue: 0
-	        		},
-	        		legend: { position: "none" },
-	        	};*/
-
-	        	//Opciones para todos los chart
-	        	var options_fullStacked = {
-	        		title: 'Nombre del comite',
-
-	        		isStacked: true,
-	        		height: 120,
-	        		legend: {position: 'top', maxLines: 3},
-	        		hAxis: {
-	        			minValue: 0,
-	        			ticks: [.3, .7 ]
-	        		}
-	        	};
-	        	var options_fullStacked1 = {
-	        		title: 'Nombre del comite',
-
-	        		isStacked: true,
-	        		height: 50,
-	        		legend: {position: 'top', maxLines: 3},
-	        		hAxis: {
-	        			minValue: 0,
-	        			ticks: [.3, .7 ]
-	        		}
-	        	};
-
-
-
-	        	var chart = new google.visualization.BarChart(document.getElementById('chart_div1'));
-	        	chart.draw(data, options_fullStacked1);
-	        	//Nuevo Chart
-	        	var chart2 = new google.visualization.BarChart(document.getElementById('chart_div2'));
-	        	chart2.draw(data2, options_fullStacked);
-	        	//Nuevo Chart
-	        	var chart3 = new google.visualization.BarChart(document.getElementById('chart_div3'));
-	        	chart3.draw(data3, options_fullStacked);
-
-
-
-	        	var datax = new google.visualization.DataTable();
-	        	datax.addColumn('string', 'programas');
-	        	datax.addColumn('number', 'Plan');
-	        	datax.addColumn({type: 'string', role: 'annotation'});
-	        	datax.addColumn('number', 'Achieved');
-	        	datax.addColumn({type: 'string', role: 'annotation'});
-
-	        	datax.addRows([
-	        		[ 'oGET',   1, '1',  .25, '.2'],
-	        		[ 'iGET',   2, '2',   .5, '.5'],
-	        		['oGV',  3, '3',    1,  '1'],
-	        		['iGV', 4, '4', 2.25,  '2'],
-
-	        		]);
-
-	        	var optionsx = {
-	        		title: 'Exchanges',
-	        		width: '600',
-	        		annotations: {
-	        			alwaysOutside: true,
-	        			textStyle: {
-	        				fontSize: 14,
-	        				color: '#000',
-	        				auraColor: 'none'
-	        			}
-	        		},
-	        		hAxis: {
-	        			title: 'programas',
-
-	        		},
-	        		vAxis: {
-	        			title: 'Vidas cambiadas'
-	        		}
-	        	};
-
-	        	var chart = new google.visualization.ColumnChart(document.getElementById('chart_divx'));
-	        	chart.draw(datax, optionsx);
-
-	        }
+		
 
         $('#status').fadeOut(); // will first fade out the loading animation
 		$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
