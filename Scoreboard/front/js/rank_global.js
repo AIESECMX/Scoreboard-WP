@@ -8,7 +8,7 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	var start_date = document.getElementById("fecha_in").value;
 	var end_date = document.getElementById("fecha_out").value;
 
-	//MC Dynamo
+	//MC Camac
 	if(!start_date && !end_date){
 		start_date = '2016-07-01'; //AÑO-MES-DÍA
 		var today = new Date();
