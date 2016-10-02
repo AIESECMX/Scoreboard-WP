@@ -51,10 +51,8 @@ def get_day_stats(pr):
 	url = "https://gis-api.aiesec.org/v2/applications/analyze.json"
 	params = {
 	"access_token" : access_token,
-	#"start_date" : now.strftime('%y-%m-01'),
-	#"end_date" : now.strftime('%y-%m-%d'),
-	"start_date" : now.strftime('2016-09-01'),
-	"end_date" : now.strftime('2016-09-27'),
+	"start_date" : now.strftime('%y-%m-01'),
+	"end_date" : now.strftime('%y-%m-%d'),
 	"basic[home_office_id]" : 1589,
 	"basic[type]" : names[program]['type'],
 	"programmes[]" : names[program]['programme']
@@ -96,7 +94,7 @@ def insert(month,year,lc,program,re,app,apl,op,com):
 	cursor = db.cursor()
 	# execute SQL query using execute() method.
 	sql_a = "INSERT INTO operation (month,year,LC_idLC,program_idprogram,re_ach,app_ach) "
-	sql_b=" VALUES ({},{},{},{},{},{}) ".format(8,year,lc,program,re,app)
+	sql_b=" VALUES ({},{},{},{},{},{}) ".format(month,year,lc,program,re,app)
 	sql_c=" ON DUPLICATE KEY UPDATE re_ach = {}, app_ach =  {} ".format(re,app) 
 	sql =  sql_a +sql_b+ sql_c
 	print sql
@@ -160,7 +158,7 @@ root.mainloop()
 #aqui empieza la ejecucion del codigo 
 '''
 print 'Iniciando ejecucion'
-access_token = '28ed01c464c1aebe782c3293f6efb5d39ee057b4f957279d5b070c9675c0218d'
+access_token = '54a8757909492b853279e281f1e786a12ed4f51a28ce663e8e74ba9fdf8eb3cc'
 get_stats()
 
 #@TODO cambiar por el token estatico
