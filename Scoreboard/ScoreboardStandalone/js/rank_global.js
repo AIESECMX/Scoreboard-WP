@@ -31,7 +31,7 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	//https://gis-api.aiesec.org/v1/offices/"+req_entity+".json
 	var options = {
 		uri_base: 'https://gis-api.aiesec.org/v1/',
-		uri_point: 'offices/1589' + country +  '.json?access_token='
+		uri_point: 'offices/' + country +  '.json?access_token='
 	};
 
 
