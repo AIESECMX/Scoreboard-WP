@@ -13,21 +13,7 @@
 
 	<script src="./js/query.js">
 	</script>
-	<script type="text/javascript">
-	$(function() {
-		var x = document.getElementById("year_in");
 
-		for (i = new Date().getFullYear(); i > 2014; i--){
-			var option = document.createElement("option");
-			option.text = i;
-			option.value = i;
-			x.add(option, x[0]);
-		}
-		
-		document.getElementById("month_in").selectedIndex = new Date().getMonth();
-
-	});
-	</script>
 </head>
 <body>
 	<input type="hidden"  id = "screen" value="1">
@@ -71,6 +57,8 @@
 						<div class="col s3 m3 l3   center-align  section">
 							<h5 class="country-name">MC HUB</h5>
 							<img src="http://www.citland.com/images/mexico-flag.png?text=FLAG" alt="Flag">
+							<h6 id="update_time" name="update_time" class="country-name">MC HUB</h6>
+
 						</div>
 						<div class="col s9 m9 l9  center-align section">
 							<div id="chart_div"></div>

@@ -11,7 +11,7 @@
  var year_global = null;
  var month_global = null;
  var data_cr = null;
- 
+ var program_names = {'oGC':'OGV','iGC':'iGV','oGT':'oGET','iGT':'iGET'};
 
 
 /*
@@ -19,6 +19,8 @@
       Main function. To be loaded when on document 'ready' event      
 ======================================================================
 */
+
+
 
 $(function(){
 
@@ -35,14 +37,7 @@ $(function(){
 		//growth
 		var d = new Date();
 		show_growth_entity(d.getFullYear(),d.getMonth());
-		//generate_test()
-		$("#go_gr").click(function (){
-			var month_i = document.getElementById("month_in");
-			var m_i = month_i.options[month_i.selectedIndex].value;
-			var year_i = document.getElementById("year_in");
-			var y_i = year_i.options[year_i.selectedIndex].value;
-			show_growth_entity(y_i,m_i);
-		});
+
 
 		break;
 		case 2:
@@ -115,40 +110,15 @@ $(function(){
 
 
 
-//DEV
-/*
-	//to get PLan vs ach MC
-	$("#submitbtn").click(function (){
-		pl_vs_ach();
-	});
-	//to get PLan convertion rates
-	$("#submitbtn_cr").click(function (){
-		show_cr_entity(0);
-	});
-	//to get PLan vs ach
-	$("#submitbtn_p_v_a").click(function (){
-		show_plan_vs_ach_lc(0,0);
-	});
-	//to get projections
-	$("#submitbtn_proj").click(function (){
-		show_plan_proj(new Date());
-	});
-	//to get growth 
-	$("#submitbtn_growth").click(function (){
-		show_growth_entity(2016,2);
-	});
-	//to get PLan vs ach detailed
-	$("#submitbtn_ach_d").click(function (){
-		show_plan_vs_ach_lc_d(0,0);
-
-	});
-*/
-	//DEV
-	//TO-DO: Either respond to "GET" analytics requests, or attach event to "Enter" keystroke
 });
 
 
-function generate_detailes_table(committee_id){
+/**
+ * creates tablesint he achievement detailed view
+ * @param  {int} committee_id the id of th comitte wich table is being created
+ * @return {[type]}              [description]
+ */
+ function generate_detailes_table(committee_id){
 
 	//finding list
 	var ul = document.getElementById("list");
@@ -213,7 +183,7 @@ function generate_detailes_table(committee_id){
 	var th_c = document.createElement("th");
 	th_c.setAttribute("class","center-align");
 	th_c.setAttribute("data-sortable-type","numeric");
-	th_c.appendChild(document.createTextNode("Accept"));
+	th_c.appendChild(document.createTextNode("Appls"));
 	var th_d = document.createElement("th");
 	th_d.setAttribute("class","center-align");
 	th_d.setAttribute("data-sortable-type","numeric");
@@ -335,19 +305,19 @@ function generate_detailes_table(committee_id){
 	var th_b = document.createElement("th");
 	th_b.setAttribute("class","center-align");
 	th_b.setAttribute("data-sortable-type","numeric");
-	th_b.appendChild(document.createTextNode("iGT "+(year-1)));
+	th_b.appendChild(document.createTextNode("iGET "+(year-1)));
 	var th_c = document.createElement("th");
 	th_c.setAttribute("class","center-align");
 	th_c.setAttribute("data-sortable-type","numeric");
-	th_c.appendChild(document.createTextNode("iGT "+year));
+	th_c.appendChild(document.createTextNode("iGET "+year));
 	var th_d = document.createElement("th");
 	th_d.setAttribute("class","center-align");
 	th_d.setAttribute("data-sortable-type","numeric");
-	th_d.appendChild(document.createTextNode("oGT"+(year-1)));
+	th_d.appendChild(document.createTextNode("oGET "+(year-1)));
 	var th_e = document.createElement("th");
 	th_e.setAttribute("class","center-align");
 	th_e.setAttribute("data-sortable-type","numeric");
-	th_e.appendChild(document.createTextNode("oGT "+year));
+	th_e.appendChild(document.createTextNode("oGET "+year));
 	var th_f = document.createElement("th");
 	th_f.setAttribute("class","center-align");
 	th_f.setAttribute("data-sortable-type","numeric");
@@ -414,19 +384,19 @@ function generate_detailes_table(committee_id){
 	var th_m = document.createElement("th");
 	th_m.setAttribute("class","center-align");
 	th_m.setAttribute("data-sortable-type","numeric");
-	th_m.appendChild(document.createTextNode("iGT "+(year-1)));
+	th_m.appendChild(document.createTextNode("iGET "+(year-1)));
 	var th_n = document.createElement("th");
 	th_n.setAttribute("class","center-align");
 	th_n.setAttribute("data-sortable-type","numeric");
-	th_n.appendChild(document.createTextNode("iGT "+year));
+	th_n.appendChild(document.createTextNode("iGET "+year));
 	var th_o = document.createElement("th");
 	th_o.setAttribute("class","center-align");
 	th_o.setAttribute("data-sortable-type","numeric");
-	th_o.appendChild(document.createTextNode("oGT"+(year-1)));
+	th_o.appendChild(document.createTextNode("oGET"+(year-1)));
 	var th_p = document.createElement("th");
 	th_p.setAttribute("class","center-align");
 	th_p.setAttribute("data-sortable-type","numeric");
-	th_p.appendChild(document.createTextNode("oGT "+year));
+	th_p.appendChild(document.createTextNode("oGET "+year));
 	var th_q = document.createElement("th");
 	th_q.setAttribute("class","center-align");
 	th_q.setAttribute("data-sortable-type","numeric");
@@ -496,25 +466,27 @@ function generate_detailes_table(committee_id){
 }
 /**
  * id for PHP = 1
-*general funciotn to get plan vs ach MC id for PHP = 1
-*/
-function pl_vs_ach(mc_id = 1589){
+ * general funciotn to get plan vs ach MC id for PHP = 1
+ * @param  {Number} mc_id [description]
+ * @return {[type]}       [description]
+ */
+ function pl_vs_ach(mc_id = 1589){
 
-	var data = {
-		"op": 1,
-		"mc": mc_id,
-		"year": 2016
-	};
-	data = $(this).serialize() + "&" + $.param(data);
-	$.ajax({
-		type: "GET",
+ 	var data = {
+ 		"op": 1,
+ 		"mc": mc_id,
+ 		"year": 2016
+ 	};
+ 	data = $(this).serialize() + "&" + $.param(data);
+ 	$.ajax({
+ 		type: "GET",
      		 url: "./php/query.php", //Relative or absolute path to response.php file
      		 dataType: "json",
      		 data: data,
      		 success: function(dat) {
      		 	$("#teslabel").innerHTML = "lala ";
      		 	console.log(JSON.stringify(dat));
-     		 	console.log("se va a llamar el metodo en el else osea que si er null");
+     		 	
      		 	
      		 	drawMultSeries(dat);
 
@@ -523,9 +495,9 @@ function pl_vs_ach(mc_id = 1589){
      		 	$("#teslabel").innerHTML="no lol";
      		 }
      		});
-	
 
-}
+
+ }
 
 /**
  * this funciotn fills the overal planing (MC) graph
@@ -539,14 +511,18 @@ function pl_vs_ach(mc_id = 1589){
  		pl_vs_ach();
 
  	}
- 	console.log("vaor es "+data.app_plan);
+ 	console.log("update time "+data.update_time);
+ 	document.getElementById('update_time').innerText= "Last Update: \n"+data.update_time;
+
 
  	var app_plan = parseInt(data.app_plan)||100;
  	var app_ach = parseInt(data.app_ach);
  	var re_plan = parseInt(data.re_plan);
  	var re_ach = parseInt(data.re_ach);
+
+
 	//@todo: set dinamyc goals or put it  in preferences or configs
-	var data = google.visualization.arrayToDataTable([
+	var dataT = google.visualization.arrayToDataTable([
 		['Stage', 'Achieved',{role: 'tooltip' },{ role: 'style' }, 'Planned', {role: 'tooltip' } , { role: 'style' } ],		
 		['Approved', app_ach,'achieved'+app_ach,'color: #0A8EA0',  6700-app_ach,   'GOAL 6700', 'color: #e5e4e2'],
 		['Realized', re_ach, 'achieved'+re_ach,'color: #0A8EA0',5050-re_ach,  'GOAL 5050', 'color: #e5e4e2']
@@ -561,64 +537,12 @@ function pl_vs_ach(mc_id = 1589){
 			ticks: [500,1000,2000,3000,4000,5000,6000,7000]
 		}
 	};
-
+	
 	var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-	chart.draw(data, options_fullStacked);
+	chart.draw(dataT, options_fullStacked);
 
 }
 
-
-/*
-function display_mc_pva(mc_pva){
-		$('select').material_select();
-		$('.datepicker-in').pickadate({
-			formatSubmit: 'yyyy-mm-dd',
-				selectMonths: true, // Creates a dropdown to control month
-				selectYears: 15, // Creates a dropdown of 15 years to control year
-				max: true
-			});
-		$('.datepicker-out').pickadate({
-			formatSubmit: 'yyyy/mm/dd',
-				selectMonths: true, // Creates a dropdown to control month
-				selectYears: 15, // Creates a dropdown of 15 years to control year
-				max: true
-			});
-
-		google.charts.load('current', {packages: ['corechart', 'bar']});
-		google.charts.setOnLoadCallback(drawMultSeries);
-
-		function drawMultSeries() {
-
-
-
-			var data = google.visualization.arrayToDataTable([
-				['Stage', 'Achieved',{role: 'tooltip' }, 'Planned', {role: 'tooltip' } ,{role: 'anotation' } ],
-				['Approved', 500,'achieved 500', 6700-500,   'GOAL '+6700, ''],
-				['Realized', 700, 'achieved 700',5050-700,  'GOAL '+5050, '']
-				]);
-
-			var options_fullStacked = {
-				isStacked: true,
-				height: 120,
-				legend: {position: 'top', maxLines: 3},
-				hAxis: {
-					minValue: 0,
-					ticks: [500,1000,2000,3000,4000,5000,6000,7000]
-				}
-			};
-
-			var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-			chart.draw(data, options_fullStacked);
-		}
-
-	        $('#status').fadeOut(); // will first fade out the loading animation
-			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
-			$('body').delay(300).css({'overflow':'visible'});
-		});
-
-
-}
-*/
 
 /////////////////////////////////
 ////// CR screen  start//////
@@ -667,8 +591,14 @@ function display_mc_pva(mc_pva){
 	}
 }
 
-function display_cr_entity(data,pr){
-	console.log(JSON.stringify(data));
+/**
+ * puts the data for convertion rates in the corresponding tables and charts
+ * @param  {Jso} data the data to display
+ * @param  {int} pr   the id of th program (igv,ogv...)
+ * @return {[type]}      [description]
+ */
+ function display_cr_entity(data,pr){
+ 	console.log(JSON.stringify(data));
 	//UNCOMMENT FOR DEV
 	$("#tbodyid").empty();
 	
@@ -677,6 +607,7 @@ function display_cr_entity(data,pr){
 		var re = 0;
 		var op = 0;
 		var apl = 0;
+		var com = 0;
 
 
 		var tres = document.getElementById("rates").tBodies.item(0);
@@ -689,6 +620,7 @@ function display_cr_entity(data,pr){
 				re += parseInt(data[i][j].re_ach)||0;
 				op += parseInt(data[i][j].op_ach)||0;
 				apl += parseInt(data[i][j].apl_ach)||0;
+				com += parseInt(data[i][j].com_ach)||0;
 			}
 		}else{
 			var pro = "";
@@ -698,24 +630,28 @@ function display_cr_entity(data,pr){
 				re = parseInt(data[i].oGC.re_ach)||0;
 				op = parseInt(data[i].oGC.op_ach)||0;
 				apl = parseInt(data[i].oGC.apl_ach)||0;
+				com = parseInt(data[i].oGC.com_ach)||0;
 				break;
 				case 2:
 				app = parseInt(data[i].oGT.app_ach)||0;
 				re = parseInt(data[i].oGT.re_ach)||0;
 				op = parseInt(data[i].oGT.op_ach)||0;
 				apl = parseInt(data[i].oGT.apl_ach)||0;
+				com = parseInt(data[i].oGT.com_ach)||0;
 				break;
 				case 3:
 				app = parseInt(data[i].iGC.app_ach)||0;
 				re = parseInt(data[i].iGC.re_ach)||0;
 				op = parseInt(data[i].iGC.op_ach)||0;
 				apl = parseInt(data[i].iGC.apl_ach)||0;
+				com = parseInt(data[i].iGC.com_ach)||0;
 				break;
 				case 4:
 				app = parseInt(data[i].iGT.app_ach)||0;
 				re = parseInt(data[i].iGT.re_ach)||0;
 				op = parseInt(data[i].iGT.op_ach)||0;
 				apl = parseInt(data[i].iGT.apl_ach)||0;
+				com = parseInt(data[i].iGT.com_ach)||0;
 				break;
 			}
 
@@ -738,9 +674,9 @@ function display_cr_entity(data,pr){
 		col = newrow.insertCell(-1);
 		col.innerHTML=re||0;
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=(re == 0)? "-":(((com/re)*100).toFixed(2)||0)+"% <small class=\"orange-text\"> "+((op == 0)? "-":(((re/op)*100).toFixed(2)||0))+"%</small>";
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=com;
 
 	}
 	
@@ -751,59 +687,7 @@ function display_cr_entity(data,pr){
 
 }
 
-/**
-* this funciotn show all the CR for entity with the 
-*requested months by programa /all the LCS/  also the ach in each 
-*step of the CF
-*it shoud show (mc,open,cr,appli,cr,app,cr,re,cr,comp) for the selcted program
-*
- * @param  {int} 
- * 	mc id 
- * @param  {int}
- * 	program id (general = 0, igt = 1, ogt = 2,igc = 3,ogc = 4)
- * @param  {date} 
- * 	start date
- * @param  {date}
- * 	end date
- * @return {null}
- */
- function show_cr_entity_pr(mc_id,pr,start_date,end_date){
 
-//get the json containig the info without cr 
-
-// itrate and calculate cr
-
-//iterate in the whole info to display it
-
-
-}
-
-/**
-*la funcion para calcular  los convertions rates
-* y los datos de achieved de opne, appl, app, re, y co co sus respectivos CR
-*por comite por mes
-*it shoud show (mc,open,cr,appli,cr,app,cr,re,cr,comp)
-*/
-function operation_CR_committee_lc(lc_id,start_date,end_date){
-
-//
-
-
-}
-
-
-/**
-*la funcion para calcularlos convertions rates
-* y los datos de achieved de opne, appl, app, re, y co co sus respectivos CR
-*por comite por mes y por porgrama
-*it shoud show (mc,open,cr,appli,cr,app,cr,re,cr,comp) for selected progrma 
-*/
-function operation_CR_committee_lc_pr(lc_id,pr,start_date,end_date){}
-
-
-
-///AUXILIARES
-function get_lc_ids(){}
 
 /////////////////////////////////
 //////      C R  end//////
@@ -877,24 +761,16 @@ function display_p_v_a_entity(data){
 		col = newrow.insertCell(-1);
 		col.innerHTML=(data[i].re_plan)?"-":(data[i].re_ach/data[i].re_plan)||0;
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=data[i].com_plan||0;
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=data[i].com_ach||0;
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=(data[i].com_plan)?"-":(data[i].com_ach/data[i].com_plan)||0;
 		
 	}
 
 }
 
-
-/**
-*this function displays all the stats for plan vs
-*ach in each stage of the costuer flow using dates
-*whould return (mc, openPlan,openach,opengrowth,aplPlan,aplAch,aplgrowth,appPlan,AppAch,appgrowth,RePlan,reAch,regrowth,
-*coPla,coAch,cogrowth)
-*/
-function show_plan_vs_ach_and_growth_mc_detailed(mc_id,start_date,end_date){}
 
 
 
@@ -950,11 +826,7 @@ function show_plan_proj(pr,month, mc_id = 1589){
 function display_plan_proj(data){
 
 
-	//UNCOMENT FOR TEST
-		//document.getElementById("proj").innerHTML = JSON.stringify(data);
 
-	//	console.log(JSON.stringify(data));
-	//UNCOMMENT FOR DEV
 	$("#tbodyid").empty();
 
 	for(var i in data){
@@ -968,7 +840,7 @@ function display_plan_proj(data){
 		col = newrow.insertCell(-1);
 		col.innerHTML=data[i].re_plan||0;
 		col = newrow.insertCell(-1);
-		col.innerHTML="?";
+		col.innerHTML=data[i].com_plan||0;
 		col = newrow.insertCell(-1);
 		col.innerHTML="";
 		col = newrow.insertCell(-1);
@@ -978,36 +850,7 @@ function display_plan_proj(data){
 	}
 }
 
-/**
-* this function will show committees plan and show the calculations for them to achieve ther app,re, co plan
-*it will return/show (mc, ap,re,co,op,apl)
-*/
-function projection_mc(mc_id,start_date,end_date){}
 
-
-/**
-* this function will show committees plan and show the calculations for them to achieve ther app,re, co plan
-*it will return/show (lc, ap,re,co,op,apl)
-*/
-function projection_lc(lc_id,start_date,end_date){}
-
-
-/**
-* this function will show committees plan and show the calculations for them to achieve ther app,re, co plan
-*it will return/show (mc, ap,re,co,op,apl)
-*/
-function projection_mc_pr(mc_id,pr,start_date,end_date){}
-
-
-/**
-* this function will show committees plan and show the calculations for them to achieve ther app,re, co plan
-*it will return/show (lc, ap,re,co,op,apl)
-*/
-function projection_lc_pr(lc_id,pr,start_date,end_date){}
-
-/////////////////////////////////
-//////Achievment screen end//////
-/////////////////////////////////
 
 
 
@@ -1018,15 +861,13 @@ function projection_lc_pr(lc_id,pr,start_date,end_date){}
 
 function show_growth_entity(year,month,mc_id = 1589){
 
-	var year = 2016;
-	var mont = 6;
 
 
 	var data = {
 		"op": 5,
 		"mc_id": mc_id,
 		"year": year,
-		"month": mont
+		"month": month
 	};
 	data = $(this).serialize() + "&" + $.param(data);
 	$.ajax({
@@ -1130,7 +971,7 @@ function populate_tables_gr(data,year){
 			col = newrow.insertCell(-1);
 			//var re_past = re_past_ogt+re_past_ogv+re_past_igt+re_past_igv;
 			//var re_act = re_act_ogt+re_act_ogv+re_act_igt+re_act_igv;
-			var aux1 =(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv)-(ap_act_ogt+ap_act_ogv+ap_act_igt+ap_act_igv);
+			var aux1 =(ap_act_ogt+ap_act_ogv+ap_act_igt+ap_act_igv)-(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv);
 			col.innerHTML=aux1;
 			col = newrow.insertCell(-1);
 			col.innerHTML=((aux1/(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv))*100).toFixed(2);
@@ -1160,7 +1001,7 @@ function populate_tables_gr(data,year){
 			col = newrow.insertCell(-1);
 			//var re_past = re_past_ogt+re_past_ogv+re_past_igt+re_past_igv;
 			//var re_act = re_act_ogt+re_act_ogv+re_act_igt+re_act_igv;
-			var aux2 = (re_past_ogt+re_past_ogv+re_past_igt+re_past_igv)-(re_act_ogt+re_act_ogv+re_act_igt+re_act_igv);
+			var aux2 = (re_act_ogt+re_act_ogv+re_act_igt+re_act_igv)-(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv);
 			col.innerHTML=aux2;
 			col = newrow.insertCell(-1);
 			col.innerHTML=((aux2/(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv))*100).toFixed(2);
@@ -1248,35 +1089,6 @@ function populate_tables_gr(data,year){
 	}
 }
 
-/**
- * this funciton will get the gowht for every lc in the mc seleted and will show the comparisiont vs last year
- * @param  {int} 
- * @return {null} it should display and retunr the following info (lc_id,lc_name,ach_last_year,ach_this_year) for each lc
- */
- function growth_lcs(mc_id){} 
-
-
-/**
- * this funciton will get the gowht for every lc in the mc seleted and will show the comparision vs the last year
- * @param  {int} 
- * @return {null} it should display and retunr the following info (mc_name,ach_last_year,ach_this_year) for the mc
- */
- function growth_mc(mc_id){} 
-
-
-/**
- * this funciton will show the growth for every program for the selected LC
- * @param  {int} the lc id
- * @return {null}	should return/show the following data (lc_name,[(program_name,lastyear,this_year,relative,absolute)],[(year,month,abs,relative,pr)])
- */
- function growth_lc_pr(lc_id){}
-
-/**
- * this funciton will show the growth for every program for the selected MC
- * @param  {int} the mc id
- * @return {null}	should return/show the following data (MC_name,[(program_name,lastyear,this_year,relative,absolute)],[(year,month,abs,relative,pr)])
- */
- function growth_lc_pr(mc_id){}
 
 
 
@@ -1345,7 +1157,7 @@ function populate_tables(data){
 		var re = re_ogv +re_ogt +re_igv +re_igt;
 		var data1 = new google.visualization.arrayToDataTable([
 			['Stage', 'Achieved',{role: 'tooltip' }, { role: 'style' }, { role: 'annotation' }, 'Planned', {role: 'tooltip' }  , { role: 'style' }, { role: 'annotation' }],
-			[v, re, 'plan','#037Ef3',re,200-re,  'achieved', 'color: #e5e4e2',200]
+			[v, re, 'plan','#037Ef3',re,200-re,  'achieved', 'color: #CACCD1',200]
 			]);		
 		var options_fullStacked = {
 			title: v,
@@ -1418,7 +1230,7 @@ function populate_tables(data){
 			var newrow = tres.insertRow(-1);
 			var col;
 			col = newrow.insertCell(-1);
-			col.innerHTML=pr;
+			col.innerHTML=program_names[pr];
 			col = newrow.insertCell(-1);
 			col.innerHTML=data[v][pr].op_ach||0;
 			col = newrow.insertCell(-1);
@@ -1436,11 +1248,11 @@ function populate_tables(data){
 			col = newrow.insertCell(-1);
 			col.innerHTML=(data[v][pr].re_plan == 0)? "-":(((data[v][pr].re_ach/data[v][pr].re_plan)*100).toFixed(2)||0);
 			col = newrow.insertCell(-1);
-			col.innerHTML="?";
+			col.innerHTML=data[v][pr].com_plan||0;
 			col = newrow.insertCell(-1);
-			col.innerHTML="?";
+			col.innerHTML=data[v][pr].com_ach||0;
 			col = newrow.insertCell(-1);
-			col.innerHTML="?";
+			col.innerHTML=(data[v][pr].com_plan == 0)? "-":(((data[v][pr].com_ach/data[v][pr].com_plan)*100).toFixed(2)||0);
 
 		}
 	}
@@ -1449,36 +1261,7 @@ function populate_tables(data){
 
 }
 
-/**
- * this funciton will get the plan v achieved for every lc in the mc seleted and will show the comparisiont plan vs ach
- * @param  {int} 
- * @return {null} it should display and retunr the following info (lc_id,lc_name,ach_last_year,ach_this_year) for each lc
- */
- function ach_lcs(mc_id){} 
 
-
-
-/**
- * this funciton will get the plan v ach for  the mc seleted and will show the comparision vs the las
- * @param  {int} 
- * @return {null} it should display and retunr the following info (lc_id,lc_name,ach_last_year,ach_this_year) for the mc
- */
- function ach_mc(mc_id){} 
-
-
-/**
- * this funciton will show the plan vs for every program for the selected LC
- * @param  {int} the lc id
- * @return {null}	should return/show the following data (lc_name,[(program_name,lastyear,this_year,relative,absolute)],[(year,month,abs,relative,pr)])
- */
- function ach_lc_pr(lc_id){}
-
-/**
- * this funciton will show the plan vs ach for every program for the selected MC
- * @param  {int} the mc id
- * @return {null}	should return/show the following data (MC_name,[(program_name,lastyear,this_year,relative,absolute)],[(year,month,abs,relative,pr)])
- */
- function ach_lc_pr(mc_id){}
 
 /////////////////////////////////
 //////detailed screen end//////

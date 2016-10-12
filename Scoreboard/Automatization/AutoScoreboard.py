@@ -1,4 +1,3 @@
-
 import requests
 import json
 import datetime
@@ -16,6 +15,8 @@ names = {
 'iGC': {"type" : "opportunity", "programme": 1,'db_id':3},
 'oGC': {"type" : "person", "programme": 1,'db_id':4},
 }
+#now = datetime.datetime.now()
+now = datetime.date(2016,10,3)
 programmes={1:'iGT',2:'oGT',3:'iGC',4:'oGC'}
 committees={}
 access_token =""
@@ -41,24 +42,28 @@ def get_local_offices():
 	now = datetime.datetime.now()
 	for k in d['suboffices']:
 		committees[k['id']]={'name':k['name']}
-		#print(r.status_code, r.reason)
-		print committees
+	#print(r.status_code, r.reason)
+	print committees
 
 #gets the day stats acording to the lc, program and type
 def get_day_stats(pr):
 	program = programmes[pr]
-	now = datetime.datetime.now()
+	
 	url = "https://gis-api.aiesec.org/v2/applications/analyze.json"
+	start_date = now.strftime('%y-%m-01')
+	end_date = now.strftime('%y-%m-%d')
 	params = {
 	"access_token" : access_token,
-	"start_date" : now.strftime('%y-%m-01'),
-	"end_date" : now.strftime('%y-%m-%d'),
+	"start_date" : start_date,
+	"end_date" : end_date,
 	"basic[home_office_id]" : 1589,
 	"basic[type]" : names[program]['type'],
 	"programmes[]" : names[program]['programme']
 	}
+
+	url_op = 'https://gis-api.aiesec.org/v2/people.json?access_token='+ access_token+ '&filters%5Bregistered%5Bfrom%5D%5D=' + start_date + '&filters%5Bregistered%5Bto%5D%5D=' + end_date+'&filters%5Bcommittee_scope%5D='
 	q = requests.get(url, data=params)
-	#print q.text
+	print q.text
 	anltcs = json.loads(q.text)
 	an =  anltcs['analytics']['children']['buckets']
 	for val in an:
@@ -69,8 +74,14 @@ def get_day_stats(pr):
 		'app':val['total_approvals']['doc_count'],
 		're':val['total_realized']['doc_count'],
 		'com':val['total_completed']['doc_count']}
+		#insert(now.month-1 , now.year , val['key'] , pr , val['total_realized']['doc_count'] , val['total_approvals']['doc_count'] , 
+		#			0,0,val['total_completed']['doc_count'])
+		#
+
+		#op_r= requests.get(url_op+str(val['key'])).text
+		#op = json.loads(op_r)['paging']['total_items']
 		insert(now.month-1 , now.year , val['key'] , pr , val['total_realized']['doc_count'] , val['total_approvals']['doc_count'] , 
-			0,0,val['total_completed']['doc_count'])
+			val['total_applications']['doc_count'],0,val['total_completed']['doc_count'])
 
 
 #
@@ -93,9 +104,9 @@ def insert(month,year,lc,program,re,app,apl,op,com):
 	# prepare a cursor object using cursor() method
 	cursor = db.cursor()
 	# execute SQL query using execute() method.
-	sql_a = "INSERT INTO operation (month,year,LC_idLC,program_idprogram,re_ach,app_ach) "
-	sql_b=" VALUES ({},{},{},{},{},{}) ".format(month,year,lc,program,re,app)
-	sql_c=" ON DUPLICATE KEY UPDATE re_ach = {}, app_ach =  {} ".format(re,app) 
+	sql_a = "INSERT INTO operation (month,year,LC_idLC,program_idprogram,re_ach,app_ach,com_ach,apl_ach) "
+	sql_b=" VALUES ({},{},{},{},{},{},{},{}) ".format(month,year,lc,program,re,app,com,apl)
+	sql_c=" ON DUPLICATE KEY UPDATE re_ach = {}, app_ach =  {} ,com_ach = {}, apl_ach = {}".format(re,app,com,apl) 
 	sql =  sql_a +sql_b+ sql_c
 	print sql
 	cursor.execute(sql)
@@ -131,37 +142,23 @@ def calculate(*args):
 '''
 root = Tk()
 root.title("Introduce token")
-
 mainframe = ttk.Frame(root, padding="3 3 12 12")
 mainframe.grid(column=0, row=0, sticky=(N, W, E, S))
 mainframe.columnconfigure(0, weight=1)
 mainframe.rowconfigure(0, weight=1)
-
 feet = StringVar()
 meters = StringVar()
-
 feet_entry = ttk.Entry(mainframe, width=7, textvariable=feet)
 feet_entry.grid(column=2, row=1, sticky=(W, E))
-
 ttk.Label(mainframe, textvariable=meters).grid(column=2, row=2, sticky=(W, E))
 ttk.Button(mainframe, text="Aceptar", command=calculate).grid(column=3, row=3, sticky=W)
-
 ttk.Label(mainframe, text="token").grid(column=1, row=1, sticky=W)
-
 for child in mainframe.winfo_children(): child.grid_configure(padx=5, pady=5)
-
 feet_entry.focus()
 root.bind('<Return>', calculate)
-
 root.mainloop()
-
 #aqui empieza la ejecucion del codigo 
 '''
 print 'Iniciando ejecucion'
-access_token = '54a8757909492b853279e281f1e786a12ed4f51a28ce663e8e74ba9fdf8eb3cc'
+access_token = '387fc984257efaa07b5f47c8bc007dd618be1733d6acd68782bf4e3e8a47e272'
 get_stats()
-
-#@TODO cambiar por el token estatico
-
-
-
