@@ -84,12 +84,12 @@ app.controller('Analytics', ['$scope', '$http', function($scope, $http) {
 	}
 
 	function ranking_ogcdp_rank (options, id, name, j, len) {
-		$http.get(options.uri).
-		success(
+		$http.get(options.uri).			
+		success(						
 			function (data) {			
-				rankMcs.push({
-					"id": id,
-					"name": name, 
+				rankMcs.push({			
+					"id": id,			
+					"name": name, 		
 					"re": data.analytics.total_realized.doc_count, //6
 					"app_app": data.analytics.total_applications.applicants.value, //1
 					"app_apps": data.analytics.total_applications.doc_count, //2

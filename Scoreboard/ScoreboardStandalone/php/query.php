@@ -50,7 +50,7 @@ if ( intval($op) == 1 ){
 }elseif(intval($op) == 3) {
 	if( isset( $_GET['year_start'] ) and isset( $_GET['month_start'] ) and 	isset( $_GET['year_end'] ) and isset( $_GET['month_end'] ) and  isset( $_GET['mc_id'] )){
 		get_operation_lc_dates_p_v_a(intval($_GET['year_start']),intval($_GET['month_start']),
-			intval($_GET['year_end']),intval($_GET['month_end']),intval($_GET['mc_id']));
+			intval($_GET['year_end']),intval($_GET['month_end']),intval($_GET['mc_id']),intval($_GET['pro']));
 	}else{
 		http_response_code(400);
 	}
@@ -404,7 +404,7 @@ function get_operation_lc_dates_p_v_a_detailed($year_start,$month_start,$year_en
  * @param  int $mc_id       
  * @return null              
  */
-function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_end,$mc_id){
+function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_end,$mc_id,$pr){
 
 
 	$conn = mysql_connect($GLOBALS['servername'], $GLOBALS['username'],$GLOBALS['password'] );
@@ -415,20 +415,37 @@ function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_
 	mysql_select_db('scoreboard');
 
 	//conertion rate for LCs
-	
-	if (intval($year_start) == intval($year_end)){
-		$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
-		sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
-		from operation Inner join  LC on operation.LC_idLC = LC.idLC 
-		where operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
-		and LC.MC_idMC = ".$mc_id." group by LC_name";
+	if (intval($pr) == 0){
+		if (intval($year_start) == intval($year_end)){
+			$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC 
+			where operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
+			and LC.MC_idMC = ".$mc_id." group by LC_name";
+		}else{
+			$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC 
+			where (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
+			and LC.MC_idMC = ".$mc_id." group by LC_name";
+		}
 	}else{
-		$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
-		sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
-		from operation Inner join  LC on operation.LC_idLC = LC.idLC 
-		where (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
-		and LC.MC_idMC = ".$mc_id." group by LC_name";
+
+		if (intval($year_start) == intval($year_end)){
+			$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC 
+			where operation.program_idprogram = ".$pr." and operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
+			and LC.MC_idMC = ".$mc_id." group by LC_name";
+		}else{
+			$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC 
+			where operation.program_idprogram = ".$pr." and  (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
+			and LC.MC_idMC = ".$mc_id." group by LC_name";
+		}
 	}
+
 //echo $sql;
 	/*$sql = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
 	sum(app_plan) as app_plan,sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, LC_name  
@@ -475,24 +492,43 @@ function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_
 
 
 	//conertion rate for MC
-	if (intval($year_start) == intval($year_end)){
+	if (intval($pr) == 0){
+		if (intval($year_start) == intval($year_end)){
 
 
-		$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
-		sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, program.name
-		from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
-		where operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
-		and LC.MC_idMC = ".$mc_id."
-		group by program.name";
+			$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
+			where operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
+			and LC.MC_idMC = ".$mc_id;
+		}else{
+
+
+			$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
+			where (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
+			and LC.MC_idMC = ".$mc_id;
+		}
 	}else{
 
+		if (intval($year_start) == intval($year_end)){
 
-		$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
-		sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan, program.name
-		from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
-		where (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
-		and LC.MC_idMC = ".$mc_id."
-		group by program.name";
+
+			$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
+			where  operation.program_idprogram = ".$pr." and operation.year = ".$year_start." and operation.month >= ".$month_start." and   operation.month <= ".$month_end." 
+			and LC.MC_idMC = ".$mc_id;
+		}else{
+
+
+			$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,sum(com_ach) as com_ach,
+			sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan,sum(com_plan) as com_plan
+			from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
+			where  operation.program_idprogram = ".$pr." and (operation.year < ".$year_end." and operation.year > .".$year_start.") or (operation.year = ".$year_start." and operation.month >= ".$month_start.") or (operation.year = ".$year_end." and operation.month <= ".$month_end.")
+			and LC.MC_idMC = ".$mc_id;
+		}
 	}
 
 //echo $sql1;

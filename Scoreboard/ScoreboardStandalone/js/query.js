@@ -81,7 +81,9 @@ $(function(){
 			var m_f = month_f.options[month_f.selectedIndex].value;
 			var year_f = document.getElementById("year_out");
 			var y_f = year_f.options[year_f.selectedIndex].value;
-			show_plan_vs_ach_lc(y_i,m_i,y_f,m_f);
+			var pro = document.getElementById("programa");
+			var pr = pro.options[pro.selectedIndex].value;
+			show_plan_vs_ach_lc(y_i,m_i,y_f,m_f,pr);
 		});
 		break;
 		case 5:
@@ -707,11 +709,12 @@ $(function(){
 *whould return (lc, openPlan,openach,opengrowth,aplPlan,aplAch,aplgrowth,appPlan,AppAch,appgrowth,RePlan,reAch,regrowth,
 *coPla,coAch,cogrowth)
 */
-function show_plan_vs_ach_lc(y_i,m_i,y_f,m_f, mc_id = 1589){
+function show_plan_vs_ach_lc(y_i,m_i,y_f,m_f,pr, mc_id = 1589){
 
 	var data = {
 		"op": 3,
 		"mc_id": mc_id,
+		"pro":pr,
 		"year_start": y_i,
 		"month_start": m_i,
 		"year_end": y_f,
@@ -925,23 +928,52 @@ function populate_tables_gr(data,year){
 		for (var i in data[v][year.toString()]){
 
 			console.log(months[i]);
-			re_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["re"]);
-			re_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["re"]);
-			re_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["re"]);
-			re_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["re"]);
-			re_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["re"]);
-			re_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["re"]);
-			re_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["re"]);
-			re_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["re"]);
 
-			ap_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["app"]);
-			ap_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["app"]);
-			ap_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["app"]);
-			ap_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["app"]);
-			ap_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["app"]);
-			ap_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["app"]);
-			ap_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["app"]);
-			ap_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["app"]);
+
+			if ((year-1).toString() in data[v]){
+				if(i in data[v][(year-1).toString()]){
+					if ("iGC" in data[v][(year-1).toString()][i] ){
+						re_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["re"]);
+						ap_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["app"]);
+					}
+					if ("iGT" in data[v][(year-1).toString()][i] ){
+						re_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["re"]);
+						ap_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["app"]);
+					}
+					if ("oGC" in data[v][(year-1).toString()][i] ){
+						re_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["re"]);
+						ap_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["app"]);
+					}
+					if ("oGT" in data[v][(year-1).toString()][i] ){
+						re_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["re"]);
+						ap_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["app"]);
+
+					}
+				}
+			}
+
+			if ("iGC" in data[v][year.toString()][i] ){
+				re_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["re"]);
+				ap_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["app"]);	
+			}
+			if ("iGT" in data[v][year.toString()][i] ){
+				re_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["re"]);
+				ap_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["app"]);
+			}
+			if ("oGC" in data[v][year.toString()][i]) {
+				re_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["re"]);
+				ap_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["app"]);
+			}
+			if ("oGT" in data[v][year.toString()][i]) {
+				re_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["re"]);
+				ap_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["app"]);
+			}
+
+
+
+
+
+
 
 
 			//filling tables
@@ -1150,11 +1182,18 @@ function populate_tables(data){
 
 	for(var v in data){
 		//filling charts
-		var re_ogt= parseInt(data[v]["oGT"]["re_ach"])||0;
-		var re_ogv = parseInt(data[v]["oGC"]["re_ach"])||0;
-		var re_igv= parseInt(data[v]["iGC"]["re_ach"])||0;
-		var re_igt= parseInt(data[v]["iGT"]["re_ach"])||0;
+		var re_ogt= ("oGT" in data[v])?parseInt(data[v]["oGT"]["re_ach"])||0:0;
+		var re_ogv = ("oGC" in data[v])?parseInt(data[v]["oGC"]["re_ach"])||0:0;
+		var re_igv= ("iGC" in data[v])?parseInt(data[v]["iGC"]["re_ach"])||0:0;
+		var re_igt= ("iGT" in data[v])?parseInt(data[v]["iGT"]["re_ach"])||0:0;
 		var re = re_ogv +re_ogt +re_igv +re_igt;
+
+		var re_plan_ogt= ("oGT" in data[v])?parseInt(data[v]["oGT"]["re_plan"])||0:0;
+		var re_plan_ogv = ("oGC" in data[v])?parseInt(data[v]["oGC"]["re_plan"])||0:0;
+		var re_plan_igv= ("iGC" in data[v])?parseInt(data[v]["iGC"]["re_plan"])||0:0;
+		var re_plan_igt= ("iGT" in data[v])?parseInt(data[v]["iGT"]["re_plan"])||0:0;
+		var re_plan = re_plan_ogv +re_plan_ogt +re_plan_igv +re_plan_igt;
+
 		var data1 = new google.visualization.arrayToDataTable([
 			['Stage', 'Achieved',{role: 'tooltip' }, { role: 'style' }, { role: 'annotation' }, 'Planned', {role: 'tooltip' }  , { role: 'style' }, { role: 'annotation' }],
 			[v, re, 'plan','#037Ef3',re,200-re,  'achieved', 'color: #CACCD1',200]
@@ -1185,12 +1224,12 @@ function populate_tables(data){
 		datax.addColumn('number', 'Goal');
 		datax.addColumn({type: 'string', role: 'style' });
 		datax.addColumn({type: 'string', role: 'annotation'});
-
+		 
 		datax.addRows([
-			[ 'oGET', re_ogt ,'color: #30C39E',re_ogt.toString(),  parseInt(data[v]["oGT"]["re_plan"]||0),'color: #CACCD1', data[v]["oGT"]["re_plan"]||"0"],
-			[ 'iGET',   re_igt, 'color: #F48924',re_igt.toString(),   parseInt(data[v]["iGT"]["re_plan"]||0),'color: #CACCD1', data[v]["iGT"]["re_plan"]||"0"],
-			['oGV',  re_ogv, 'color: #F85A40',re_ogv.toString(),    parseInt(data[v]["oGC"]["re_plan"]||0),'color: #CACCD1', data[v]["oGC"]["re_plan"]||"0"],
-			['iGV', re_igv, 'color: #FFC845',re_igv.toString(), parseInt(data[v]["iGC"]["re_plan"]||0),'color: #CACCD1', data[v]["iGC"]["re_plan"]||"0"],
+			[ 'oGET', re_ogt ,'color: #30C39E',re_ogt.toString(),  re_plan_ogt,'color: #CACCD1', re_plan_ogt.toString()],
+			[ 'iGET',   re_igt, 'color: #F48924',re_igt.toString(),re_plan_igt,'color: #CACCD1', re_plan_igt.toString()],
+			['oGV',  re_ogv, 'color: #F85A40',re_ogv.toString(),    re_plan_ogv,'color: #CACCD1', re_plan_ogv.toString()],
+			['iGV', re_igv, 'color: #FFC845',re_igv.toString(), re_plan_igv,'color: #CACCD1', re_plan_igv.toString()],
 
 			]);
 

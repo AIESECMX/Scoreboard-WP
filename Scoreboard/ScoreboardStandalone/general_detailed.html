@@ -39,7 +39,8 @@
 	});
 	</script>
 </head>
-<body>
+<body>	<input type="hidden"  id = "screen" value="6">
+
 	<!--Menu-->
 	<nav class="blue darken-2" role="navigation">
 		<div class="nav-wrapper container">
@@ -69,7 +70,7 @@
 		<section>
 			<artcicle id="goal" class="row">
 				<div class="col s12 m12 l12 blue white-text center-align">							
-					<h3 >Achievement</h3>
+					<h3 >General Detailes</h3>
 
 				</div>
 				<div class="col s3 m3 l3   center-align  section">
@@ -132,99 +133,81 @@
 				</select>		
 				<label for="access_token">Mes fin</label>
 			</div>				
-			<div class="input-field col s3 m2 l2 ">
-				<select name="programa" id="programa">
-					<option value="0">General</option>
-					<option value="4">oGV</option>
-					<option value="2">oGT</option>
-					<option value="3">iGV</option>
-					<option value="1">iGT</option>
-				</select>
-			</div>
+
 			<div class="input-field col s2 m1 l1">
 				<button  class="btn waves-effect waves-light" id="go_ach" name="action">Go</button>
 			</div>				
 		</section>
 		<!--/INPUTS-->
 
-		<section class="container row section">
-			<table class="striped">
+		<div class="row">
+			<div class="input-field col s12 m5 l5">
+				<input type="text" value="" id="search" ng-model="search" />
+				<label for="search">Search</label>
+			</div>
+
+			<table class="striped sortable-theme-bootstrap" data-sortable>
 				<thead>
 					<tr>
-
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="1" class="center-align  darken-1 white-text"></th>
-						<th colspan="2" class="center-align grey darken-1 white-text">Approved</th>
-						<th colspan="2" class="center-align grey darken-1 white-text">Realized</th>
-						<th colspan="2" class="center-align grey darken-1 white-text ">Completed</th>
+						<th class="center-align">#</th>
+						<th>Name</th>
+						<th data-sortable-type="numeric">iGV Ap</th>
+						<th data-sortable-type="numeric">iGT Ap</th>
+						<th data-sortable-type="numeric">oGV Ap</th>
+						<th data-sortable-type="numeric">oGT Ap</th>
+						<th data-sortable-type="numeric">TOTAL MA</th>
+						<th data-sortable-type="numeric">iGV Re</th>
+						<th data-sortable-type="numeric">iGT Re</th>
+						<th data-sortable-type="numeric">oGV Re</th>
+						<th data-sortable-type="numeric">oGT Re</th>
+						<th data-sortable-type="numeric">TOTAL RE</th>
 					</tr>
-
-				</table>
-				<table  id = "projections" class="sortable-theme-bootstrap striped" data-sortable>
-					<thead>
-						<tr>
-							<th class="center-align">LC</th>
-							<th class="center-align" data-sortable-type="numeric">Open</th>
-							<th class="center-align" data-sortable-type="numeric">Applications</th>
-							<th class="center-align" data-sortable-type="numeric">Plan</th>
-							<th class="center-align" data-sortable-type="numeric">Achieved</th>
-							<th class="center-align" data-sortable-type="numeric">%</th>
-							<th class="center-align" data-sortable-type="numeric">Plan</th>
-							<th class="center-align" data-sortable-type="numeric">Achieved</th>
-							<th class="center-align" data-sortable-type="numeric">%</th>
-							<th class="center-align" data-sortable-type="numeric">Plan</th>
-							<th class="center-align" data-sortable-type="numeric">Achieved</th>
-							<th class="center-align" data-sortable-type="numeric">%</th>	
-						</tr>
-					</thead>
-					<tbody id="tbodyid">
-
-					</tbody>
-				</table>
-			</section>
-
-
-
-
-		</section>
-		<!-- Compiled and minified JavaScript -->
-		<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-		<script>
-		$(document).ready(function() {
-			$('select').material_select();
-			$('.datepicker-in').pickadate({
-				formatSubmit: 'yyyy-mm-dd',
-				selectMonths: true, // Creates a dropdown to control month
-				selectYears: 15, // Creates a dropdown of 15 years to control year
-				max: true
-			});
-			$('.datepicker-out').pickadate({
-				formatSubmit: 'yyyy/mm/dd',
-				selectMonths: true, // Creates a dropdown to control month
-				selectYears: 15, // Creates a dropdown of 15 years to control year
-				max: true
-			});
-
-
-
-			google.charts.load('current', {packages: ['corechart', 'bar']});
-			google.charts.setOnLoadCallback(pl_vs_ach);
-
-
+				</thead>
+				<tbody>
+					<tr ng-repeat="mc in mcs20 | filter : search">
+						<td class="center-align">{{$index + 1}}</td>
+						<td>{{mc.name}}</td>
+						<td>{{mc.igv_appro}}</td>
+						<td>{{mc.igt_appro}}</td>
+						<td>{{mc.ogv_appro}}</td>
+						<td>{{mc.ogt_appro}}</td>
+						<td>{{mc.appro}}</td>
+						<td>{{mc.igv_re}}</td>
+						<td>{{mc.igt_re}}</td>
+						<td>{{mc.ogv_re}}</td>
+						<td>{{mc.ogt_re}}</td>
+						<td>{{mc.re}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</section>
+	<script src="https://code.jquery.com/jquery-2.2.2.js" integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE=" crossorigin="anonymous"></script>
+	<!-- Compiled and minified JavaScript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+	<script src="js/rank_global.js"></script>
+	<script src="js/sortable.min.js"></script>
+	<script>
+	$(document).ready(function() {
+		$('select').material_select();
+		$('.datepicker-in').pickadate({
+			formatSubmit: 'yyyy-mm-dd',
+    			selectMonths: true, // Creates a dropdown to control month
+    			selectYears: 15 // Creates a dropdown of 15 years to control year
+    		});
+		$('.datepicker-out').pickadate({
+			formatSubmit: 'yyyy/mm/dd',
+    			selectMonths: true, // Creates a dropdown to control month
+    			selectYears: 15 // Creates a dropdown of 15 years to control year
+    		});
 	        $('#status').fadeOut(); // will first fade out the loading animation
 			$('#preloader').delay(300).fadeOut('slow'); // will fade out the white DIV that covers the website.
 			$('body').delay(300).css({'overflow':'visible'});
 		});
-		</script>
-	</body>
-	</html>
+	</script>
+	<!--SCRIPTS GRAPH-->
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/data.js"></script>
+	<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+</body>
+</html>
