@@ -1,3 +1,4 @@
+import gis_token_generator
 import requests
 import json
 import datetime
@@ -15,8 +16,8 @@ names = {
 'iGC': {"type" : "opportunity", "programme": 1,'db_id':3},
 'oGC': {"type" : "person", "programme": 1,'db_id':4},
 }
-#now = datetime.datetime.now()
-now = datetime.date(2016,10,3)
+now = datetime.datetime.now()
+#now = datetime.date(2016,10,3)
 programmes={1:'iGT',2:'oGT',3:'iGC',4:'oGC'}
 committees={}
 access_token =""
@@ -61,7 +62,7 @@ def get_day_stats(pr):
 	"programmes[]" : names[program]['programme']
 	}
 
-	url_op = 'https://gis-api.aiesec.org/v2/people.json?access_token='+ access_token+ '&filters%5Bregistered%5Bfrom%5D%5D=' + start_date + '&filters%5Bregistered%5Bto%5D%5D=' + end_date+'&filters%5Bcommittee_scope%5D='
+#	url_op = 'https://gis-api.aiesec.org/v2/people.json?access_token='+ access_token+ '&filters%5Bregistered%5Bfrom%5D%5D=' + start_date + '&filters%5Bregistered%5Bto%5D%5D=' + end_date+'&filters%5Bcommittee_scope%5D='
 	q = requests.get(url, data=params)
 	print q.text
 	anltcs = json.loads(q.text)
@@ -160,5 +161,10 @@ root.mainloop()
 #aqui empieza la ejecucion del codigo 
 '''
 print 'Iniciando ejecucion'
-access_token = '387fc984257efaa07b5f47c8bc007dd618be1733d6acd68782bf4e3e8a47e272'
+token_generation = gis_token_generator.GISTokenGenerator("", "")
+access_token=token_generation.generate_token()
+
+#access_token = 'bed4eebab1f908ca3b2a75d19ea20edce7bc49da29d0eb8092ef16f20f40c68d'
 get_stats()
+
+

@@ -899,7 +899,6 @@ function display_growth(data,year){
 	}
 	google.charts.load('current', {packages: ['corechart', 'bar']});
 	google.charts.setOnLoadCallback(function() { populate_tables_gr(data,year); });
-
 }
 
 function populate_tables_gr(data,year){
@@ -925,9 +924,26 @@ function populate_tables_gr(data,year){
 		var ap_past_igv = 0;
 		var ap_past_ogt = 0;
 		var ap_past_igt = 0;
-		for (var i in data[v][year.toString()]){
 
-			console.log(months[i]);
+		var re_act_ogv_i = 0;
+		var re_act_igv_i = 0;
+		var re_act_ogt_i = 0;
+		var re_act_igt_i = 0;
+		var re_past_ogv_i = 0;
+		var re_past_igv_i = 0;
+		var re_past_ogt_i = 0;
+		var re_past_igt_i = 0;
+		var ap_act_ogv_i = 0;
+		var ap_act_igv_i = 0;
+		var ap_act_ogt_i = 0;
+		var ap_act_igt_i = 0;
+		var ap_past_ogv_i = 0;
+		var ap_past_igv_i = 0;
+		var ap_past_ogt_i = 0;
+		var ap_past_igt_i = 0;
+
+
+		for (var i in data[v][year.toString()]){
 
 
 			if ((year-1).toString() in data[v]){
@@ -935,18 +951,26 @@ function populate_tables_gr(data,year){
 					if ("iGC" in data[v][(year-1).toString()][i] ){
 						re_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["re"]);
 						ap_past_igv+=parseInt(data[v][(year-1).toString()][i]["iGC"]["app"]);
+						re_past_igv_i=parseInt(data[v][(year-1).toString()][i]["iGC"]["re"]);
+						ap_past_igv_i=parseInt(data[v][(year-1).toString()][i]["iGC"]["app"]);
 					}
 					if ("iGT" in data[v][(year-1).toString()][i] ){
 						re_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["re"]);
 						ap_past_igt+=parseInt(data[v][(year-1).toString()][i]["iGT"]["app"]);
+						re_past_igt_i=parseInt(data[v][(year-1).toString()][i]["iGT"]["re"]);
+						ap_past_igt_i=parseInt(data[v][(year-1).toString()][i]["iGT"]["app"]);
 					}
 					if ("oGC" in data[v][(year-1).toString()][i] ){
 						re_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["re"]);
 						ap_past_ogv+=parseInt(data[v][(year-1).toString()][i]["oGC"]["app"]);
+						re_past_ogv_i=parseInt(data[v][(year-1).toString()][i]["oGC"]["re"]);
+						ap_past_ogv_i=parseInt(data[v][(year-1).toString()][i]["oGC"]["app"]);
 					}
 					if ("oGT" in data[v][(year-1).toString()][i] ){
 						re_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["re"]);
 						ap_past_ogt+=parseInt(data[v][(year-1).toString()][i]["oGT"]["app"]);
+						re_past_ogt_i=parseInt(data[v][(year-1).toString()][i]["oGT"]["re"]);
+						ap_past_ogt_i=parseInt(data[v][(year-1).toString()][i]["oGT"]["app"]);
 
 					}
 				}
@@ -954,30 +978,30 @@ function populate_tables_gr(data,year){
 
 			if ("iGC" in data[v][year.toString()][i] ){
 				re_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["re"]);
-				ap_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["app"]);	
+				ap_act_igv+=parseInt(data[v][year.toString()][i]["iGC"]["app"]);
+				re_act_igv_i=parseInt(data[v][year.toString()][i]["iGC"]["re"]);
+				ap_act_igv_i=parseInt(data[v][year.toString()][i]["iGC"]["app"]);	
 			}
 			if ("iGT" in data[v][year.toString()][i] ){
 				re_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["re"]);
 				ap_act_igt+=parseInt(data[v][year.toString()][i]["iGT"]["app"]);
+				re_act_igt_i=parseInt(data[v][year.toString()][i]["iGT"]["re"]);
+				ap_act_igt_i=parseInt(data[v][year.toString()][i]["iGT"]["app"]);
 			}
 			if ("oGC" in data[v][year.toString()][i]) {
 				re_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["re"]);
 				ap_act_ogv+=parseInt(data[v][year.toString()][i]["oGC"]["app"]);
+				re_act_ogv_i=parseInt(data[v][year.toString()][i]["oGC"]["re"]);
+				ap_act_ogv_i=parseInt(data[v][year.toString()][i]["oGC"]["app"]);
 			}
 			if ("oGT" in data[v][year.toString()][i]) {
 				re_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["re"]);
 				ap_act_ogt+=parseInt(data[v][year.toString()][i]["oGT"]["app"]);
+				re_act_ogt_i=parseInt(data[v][year.toString()][i]["oGT"]["re"]);
+				ap_act_ogt_i=parseInt(data[v][year.toString()][i]["oGT"]["app"]);
 			}
 
-
-
-
-
-
-
-
 			//filling tables
-
 
 			var tres = document.getElementById("sub_table_app"+v).tBodies.item(0);
 			var newrow = tres.insertRow(-1);
@@ -985,29 +1009,28 @@ function populate_tables_gr(data,year){
 			col = newrow.insertCell(-1);
 			col.innerHTML=months[i];
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_past_igt;
+			col.innerHTML=ap_past_igt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_act_igt;
+			col.innerHTML=ap_act_igt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_past_ogt;
+			col.innerHTML=ap_past_ogt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_act_ogt;
+			col.innerHTML=ap_act_ogt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_past_igv;
+			col.innerHTML=ap_past_igv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_act_igv;
+			col.innerHTML=ap_act_igv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_past_ogv;
+			col.innerHTML=ap_past_ogv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=ap_act_ogv;
+			col.innerHTML=ap_act_ogv_i;
 			col = newrow.insertCell(-1);
 			//var re_past = re_past_ogt+re_past_ogv+re_past_igt+re_past_igv;
 			//var re_act = re_act_ogt+re_act_ogv+re_act_igt+re_act_igv;
-			var aux1 =(ap_act_ogt+ap_act_ogv+ap_act_igt+ap_act_igv)-(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv);
+			var aux1 =(ap_act_ogt_i+ap_act_ogv_i+ap_act_igt_i+ap_act_igv_i)-(ap_past_ogt_i+ap_past_ogv_i+ap_past_igt_i+ap_past_igv_i);
 			col.innerHTML=aux1;
 			col = newrow.insertCell(-1);
-			col.innerHTML=((aux1/(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv))*100).toFixed(2);
-
+			col.innerHTML=((aux1/(ap_past_ogt_i+ap_past_ogv_i+ap_past_igt_i+ap_past_igv_i))*100).toFixed(2);
 
 			var tres = document.getElementById("sub_table_re"+v).tBodies.item(0);
 			var newrow = tres.insertRow(-1);
@@ -1015,32 +1038,90 @@ function populate_tables_gr(data,year){
 			col = newrow.insertCell(-1);
 			col.innerHTML=months[i];
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_past_igt;
+			col.innerHTML=re_past_igt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_act_igt;
+			col.innerHTML=re_act_igt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_past_ogt;
+			col.innerHTML=re_past_ogt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_act_ogt;
+			col.innerHTML=re_act_ogt_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_past_igv;
+			col.innerHTML=re_past_igv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_act_igv;
+			col.innerHTML=re_act_igv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_past_ogv;
+			col.innerHTML=re_past_ogv_i;
 			col = newrow.insertCell(-1);
-			col.innerHTML=re_act_ogv;
+			col.innerHTML=re_act_ogv_i;
 			col = newrow.insertCell(-1);
 			//var re_past = re_past_ogt+re_past_ogv+re_past_igt+re_past_igv;
 			//var re_act = re_act_ogt+re_act_ogv+re_act_igt+re_act_igv;
-			var aux2 = (re_act_ogt+re_act_ogv+re_act_igt+re_act_igv)-(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv);
+			var aux2 = (re_act_ogt_i+re_act_ogv_i+re_act_igt_i+re_act_igv_i)-(re_past_ogt_i+re_past_ogv_i+re_past_igt_i+re_past_igv_i);
 			col.innerHTML=aux2;
 			col = newrow.insertCell(-1);
-			col.innerHTML=((aux2/(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv))*100).toFixed(2);
-
+			col.innerHTML=((aux2/(re_past_ogt_i+re_past_ogv_i+re_past_igt_i+re_past_igv_i))*100).toFixed(2);
 
 		}
 
+		//TOTAL
+		//filling tables
+
+		var tres = document.getElementById("sub_table_app"+v).tBodies.item(0);
+		var newrow = tres.insertRow(-1);
+		var col;
+		col = newrow.insertCell(-1);
+		col.innerHTML="TOTAL";
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_past_igt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_act_igt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_past_ogt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_act_ogt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_past_igv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_act_igv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_past_ogv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=ap_act_ogv;
+		col = newrow.insertCell(-1);
+
+		var aux1 =(ap_act_ogt+ap_act_ogv+ap_act_igt+ap_act_igv)-(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv);
+		col.innerHTML=aux1;
+		col = newrow.insertCell(-1);
+		col.innerHTML=((aux1/(ap_past_ogt+ap_past_ogv+ap_past_igt+ap_past_igv))*100).toFixed(2);
+
+		var tres = document.getElementById("sub_table_re"+v).tBodies.item(0);
+		var newrow = tres.insertRow(-1);
+		var col;
+		col = newrow.insertCell(-1);
+		col.innerHTML="TOTAL";
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_past_igt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_act_igt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_past_ogt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_act_ogt;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_past_igv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_act_igv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_past_ogv;
+		col = newrow.insertCell(-1);
+		col.innerHTML=re_act_ogv;
+		col = newrow.insertCell(-1);
+		//var re_past = re_past_ogt+re_past_ogv+re_past_igt+re_past_igv;
+		//var re_act = re_act_ogt+re_act_ogv+re_act_igt+re_act_igv;
+		var aux2 = (re_act_ogt+re_act_ogv+re_act_igt+re_act_igv)-(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv);
+		col.innerHTML=aux2;
+		col = newrow.insertCell(-1);
+		col.innerHTML=((aux2/(re_past_ogt+re_past_ogv+re_past_igt+re_past_igv))*100).toFixed(2);
 
 		//draw chart
 		//		//chart pe program 
@@ -1059,7 +1140,6 @@ function populate_tables_gr(data,year){
 			[ 'iGET',   re_act_igt, 'color: #F48924',re_act_igt.toString(),   re_past_igt,'color: #CACCD1', re_past_igt.toString()],
 			['oGV',  re_act_ogv, 'color: #F85A40',re_act_ogv.toString(),    re_past_ogv,'color: #CACCD1', re_past_ogv.toString()],
 			['iGV', re_act_igv, 'color: #FFC845',re_act_igv.toString(), re_past_igv,'color: #CACCD1', re_past_igv.toString()],
-
 			]);
 
 		var optionsx = {
@@ -1120,9 +1200,6 @@ function populate_tables_gr(data,year){
 
 	}
 }
-
-
-
 
 /////////////////////////////////
 //////growth screen end//////
@@ -1213,7 +1290,6 @@ function populate_tables(data){
 		var chart = new google.visualization.BarChart(document.getElementById('chart_'+v));
 		chart.draw(data1, options_fullStacked);
 
-
 		//chart pe program 
 		
 		var datax = new google.visualization.DataTable();
@@ -1224,7 +1300,7 @@ function populate_tables(data){
 		datax.addColumn('number', 'Goal');
 		datax.addColumn({type: 'string', role: 'style' });
 		datax.addColumn({type: 'string', role: 'annotation'});
-		 
+
 		datax.addRows([
 			[ 'oGET', re_ogt ,'color: #30C39E',re_ogt.toString(),  re_plan_ogt,'color: #CACCD1', re_plan_ogt.toString()],
 			[ 'iGET',   re_igt, 'color: #F48924',re_igt.toString(),re_plan_igt,'color: #CACCD1', re_plan_igt.toString()],
@@ -1256,14 +1332,9 @@ function populate_tables(data){
 		var chart = new google.visualization.ColumnChart(document.getElementById('chart_programs'+v));
 		chart.draw(datax, optionsx);
 
-
-
-
 		//filling tables
 		$("#tbody_"+v).empty();
 		for (var pr in data[v]){
-
-
 
 			var tres = document.getElementById("table_"+v).tBodies.item(0);
 			var newrow = tres.insertRow(-1);
@@ -1295,8 +1366,6 @@ function populate_tables(data){
 
 		}
 	}
-
-
 
 }
 

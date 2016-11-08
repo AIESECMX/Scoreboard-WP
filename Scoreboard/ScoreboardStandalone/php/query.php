@@ -544,7 +544,8 @@ function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_
 	}
 	$res_overall = array("MC" => array());
 	while($row = mysql_fetch_array($res1, MYSQL_ASSOC)){
-		$res_overall["MC"]["{$row['name']}"] = array( 
+	//	$res_overall["MC"]["{$row['name']}"] = array( 
+	$res= array( 
 			"app_ach" => $row['app_ach'],
 			"re_ach" => $row['re_ach'],
 			"op_ach" => $row['op_ach'],
@@ -555,8 +556,8 @@ function get_operation_lc_dates_p_v_a($year_start,$month_start,$year_end,$month_
 			"apl_plan" => $row['apl_plan']
 			);
 	} 
-	$results["MC"] = $res_overall["MC"];
-
+	//$results["MC"] = $res_overall["MC"];
+	$results["MC"] = $res;
 	echo json_encode($results);
 
 	mysql_close($conn);
@@ -671,32 +672,47 @@ function get_operation_growth($year,$month,$mc_id){
 
 	} 
 
-/*
-	//conertion rate for MC
-	$sql1 = "SELECT sum(app_ach) as app_ach, sum(re_ach) as re_ach, sum(op_ach) as op_ach, sum(apl_ach) as apl_ach,
-	sum(app_plan) as app_plan, sum(re_plan) as re_plan, sum(op_plan) as op_plan, sum(apl_plan) as apl_plan, program.name
-	from operation Inner join  LC on operation.LC_idLC = LC.idLC  inner join program on program.idprogram = operation.program_idprogram
-	where operation.year Between ".$year_start." and ".$year_end." and operation.month Between ".$month_start." and  ".$month_end."
-	and LC.MC_idMC = ".$mc_id."
-	group by program.name";
-	$res1 = mysql_query( $sql1, $conn );
-	if(! $res1 ){
+
+//MC gr
+	$sql = "SELECT sum(re_ach) as re_ach, sum(app_ach) as app_ach ,month, year, name
+	from operation inner join LC on operation.LC_idLC = LC.idLC inner join program on operation.program_idprogram = idprogram 
+	where LC.MC_idMC = ".$mc_id." and year = ". $year." and operation.month > 5 and operation.month <= ".$month." 
+	group by LC.MC_idMC  , year, month, name";
+	$res = mysql_query( $sql, $conn );
+	if(! $res )
+	{
 		die('Could not get data: ' . mysql_error());
 	}
-	$res_overall = array("MC" => array());
-	while($row = mysql_fetch_array($res1, MYSQL_ASSOC)){
-		$res_overall["MC"]["{$row['name']}"] = array( 
-			"app_ach" => $row['app_ach'],
-			"re_ach" => $row['re_ach'],
-			"op_ach" => $row['op_ach'],
-			"apl_ach" => $row['apl_ach'],
-			"app_plan" => $row['app_plan'],
-			"re_plan" => $row['re_plan'],
-			"op_plan" => $row['op_plan'],
-			"apl_plan" => $row['apl_plan']
+	while($row = mysql_fetch_array($res, MYSQL_ASSOC))
+	{
+
+		$results["MC"]["{$row['year']}"]["{$row['month']}"]["{$row['name']}"] = array(
+			'app' => $row['app_ach'],
+			're' => $row['re_ach']
 			);
+		
+
 	} 
-	$results["MC"] = $res_overall["MC"];*/
+	$sql2 = "SELECT sum(re_ach) as re_ach, sum(app_ach) as app_ach , month, year, name
+	from operation inner join LC on operation.LC_idLC = LC.idLC inner join program on operation.program_idprogram = idprogram 
+	where LC.MC_idMC = ".$mc_id." and year = ". ($year-1)." and operation.month > 5 and operation.month <= ".$month." 
+	group by LC.MC_idMC , year, month, name";
+	$res2 = mysql_query( $sql2 , $conn );
+	if(! $res2 )
+	{
+		die('Could not get data: ' . mysql_error());
+	}
+	while($row = mysql_fetch_array($res2, MYSQL_ASSOC))
+	{
+
+		$results["MC"]["{$row['year']}"]["{$row['month']}"]["{$row['name']}"] = array(
+			'app' => $row['app_ach'],
+			're' => $row['re_ach']
+			);
+		
+
+	} 
+
 
 	echo json_encode($results);
 
