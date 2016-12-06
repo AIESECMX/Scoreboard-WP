@@ -5,6 +5,7 @@ import logging
 
 
 class GISTokenGenerator:
+    
     def __init__(self, email, password):
         self.cj = cookielib.CookieJar()
         self.opener = urllib2.build_opener(urllib2.HTTPCookieProcessor(self.cj))
@@ -24,7 +25,5 @@ class GISTokenGenerator:
 
 
 
-    token_generation = GISTokenGenerator("", "")
-    print token_generation.generate_token()
 
 

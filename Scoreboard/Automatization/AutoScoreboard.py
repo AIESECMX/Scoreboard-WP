@@ -101,7 +101,7 @@ def insert(month,year,lc,program,re,app,apl,op,com):
 	if (lc == 1589):
 		return
 	#
-	db = MySQLdb.connect("67.192.246.142","root","A1ESECMX-hub2438_dbs","scoreboard")
+	db = MySQLdb.connect("","","","")
 	# prepare a cursor object using cursor() method
 	cursor = db.cursor()
 	# execute SQL query using execute() method.
